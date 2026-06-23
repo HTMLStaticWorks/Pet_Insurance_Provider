@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coming Soon | Pawsure</title>
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..800&display=swap"
+        rel="stylesheet">
+
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/rtl.css">
-    
+    <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
     <style>
         .countdown {
             display: flex;
@@ -21,6 +24,7 @@
             margin-top: 48px;
             margin-bottom: 48px;
         }
+
         .countdown-item {
             display: flex;
             flex-direction: column;
@@ -31,12 +35,14 @@
             min-width: 100px;
             box-shadow: var(--shadow);
         }
+
         .countdown-number {
             font-family: var(--font-heading);
             font-size: 3rem;
             color: var(--color-primary);
             line-height: 1;
         }
+
         .countdown-label {
             font-size: var(--size-caption);
             color: var(--text-muted);
@@ -46,8 +52,10 @@
         }
     </style>
 </head>
-<body style="display: flex; align-items: center; justify-content: center; min-height: 100vh; text-align: center; overflow: hidden;">
-    
+
+<body
+    style="display: flex; align-items: center; justify-content: center; min-height: 100vh; text-align: center; overflow: hidden;">
+
     <div style="position: absolute; top: 24px; right: 24px; display: flex; gap: 16px;">
         <button class="icon-btn theme-toggle" aria-label="Toggle Dark Mode">
             <div class="theme-icon">
@@ -62,10 +70,11 @@
 
     <div class="container fade-up" style="max-width: 700px;">
         <i class="ph-fill ph-paw-print" style="font-size: 64px; color: var(--color-primary); margin-bottom: 24px;"></i>
-        
+
         <h1 style="margin-bottom: 16px;">Something pawsome is coming.</h1>
-        <p style="color: var(--text-muted); font-size: var(--size-lead);">We're working hard to bring you a better way to protect your pets. Get ready for transparent, reliable pet insurance.</p>
-        
+        <p style="color: var(--text-muted); font-size: var(--size-lead);">We're working hard to bring you a better way
+            to protect your pets. Get ready for transparent, reliable pet insurance.</p>
+
         <div class="countdown" id="countdown">
             <div class="countdown-item">
                 <span class="countdown-number" id="days">00</span>
@@ -85,11 +94,13 @@
             </div>
         </div>
 
-        <form class="form-group needs-validation" style="display: flex; gap: 8px; max-width: 400px; margin: 0 auto;" novalidate>
-            <input type="email" placeholder="Enter your email to be notified" class="form-control" required style="flex: 1;">
+        <form class="form-group needs-validation" style="display: flex; gap: 8px; max-width: 400px; margin: 0 auto;"
+            novalidate>
+            <input type="email" placeholder="Enter your email to be notified" class="form-control" required
+                style="flex: 1;">
             <button type="submit" class="btn btn-primary" style="padding: 14px 24px;">Notify Me</button>
         </form>
-        
+
         <div style="margin-top: 32px;">
             <a href="index.html" style="color: var(--text-muted); text-decoration: underline;">Back to Home</a>
         </div>
@@ -127,4 +138,5 @@
         });
     </script>
 </body>
+
 </html>

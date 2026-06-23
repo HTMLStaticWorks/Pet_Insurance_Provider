@@ -1,0 +1,1800 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Policyholder Dashboard | Pawsure</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..800&display=swap"
+        rel="stylesheet">
+
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/rtl.css">
+
+    <style>
+        body {
+            background-color: var(--bg-surface-alt);
+        }
+
+        /* Dashboard Layout */
+        .dash-layout {
+            display: flex;
+            min-height: 100vh;
+            padding-top: 80px;
+            /* offset navbar */
+        }
+
+        .dash-sidebar {
+            width: 280px;
+            background-color: var(--bg-surface);
+            border-right: 1px solid var(--border-color);
+            position: fixed;
+            top: 80px;
+            bottom: 0;
+            overflow-y: auto;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .dash-main {
+            flex: 1;
+            margin-left: 280px;
+            /* matches sidebar width */
+            padding: 40px;
+            min-width: 0;
+        }
+
+        html[dir="rtl"] .dash-sidebar {
+            border-right: none;
+            border-left: 1px solid var(--border-color);
+            right: 0;
+            left: auto;
+        }
+
+        html[dir="rtl"] .dash-main {
+            margin-left: 0;
+            margin-right: 280px;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: var(--text-muted);
+            border-radius: var(--radius);
+            font-weight: var(--weight-label);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .sidebar-link i {
+            font-size: 20px;
+        }
+
+        .sidebar-link:hover,
+        .sidebar-link.active {
+            background-color: var(--color-primary);
+            color: #fff;
+        }
+
+        .badge {
+            background-color: var(--color-accent);
+            color: #fff;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            margin-left: auto;
+        }
+
+        /* Dashboard Views */
+        .dash-view {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .dash-view.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Top Bar */
+        .dash-topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .dash-title {
+            font-family: var(--font-heading);
+            font-size: var(--size-h2);
+            color: var(--text-main);
+            margin: 0;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        /* Grid Layouts */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .kpi-card {
+            background-color: var(--bg-surface);
+            padding: 24px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+            text-align: left;
+            /* override default card */
+            align-items: flex-start;
+            transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+        }
+        .kpi-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--color-primary);
+        }
+
+        .kpi-title {
+            color: var(--text-muted);
+            font-size: var(--size-caption);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .kpi-value {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            color: var(--color-primary);
+        }
+
+        /* Claim Timeline */
+        .timeline-card {
+            background-color: var(--bg-surface);
+            padding: 32px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+            margin-bottom: 32px;
+        }
+
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 12px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: var(--border-color);
+            z-index: 1;
+        }
+
+        .timeline-progress {
+            position: absolute;
+            top: 12px;
+            left: 0;
+            height: 4px;
+            background-color: var(--color-primary);
+            z-index: 2;
+            width: 75%;
+            /* Set via inline style or JS */
+            transition: width 1s ease;
+        }
+
+        .timeline-node {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            width: 25%;
+        }
+
+        .timeline-dot {
+            width: 28px;
+            height: 28px;
+            background-color: var(--bg-surface);
+            border: 4px solid var(--border-color);
+            border-radius: 50%;
+            margin: 0 auto 12px;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-node.completed .timeline-dot {
+            border-color: var(--color-primary);
+            background-color: var(--color-primary);
+        }
+
+        .timeline-node.active .timeline-dot {
+            border-color: var(--color-accent);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(232, 107, 58, 0.4);
+            }
+
+            70% {
+                box-shadow: 0 0 0 10px rgba(232, 107, 58, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(232, 107, 58, 0);
+            }
+        }
+
+        .timeline-label {
+            font-size: var(--size-caption);
+            font-weight: bold;
+            color: var(--text-muted);
+        }
+
+        .timeline-node.completed .timeline-label,
+        .timeline-node.active .timeline-label {
+            color: var(--text-main);
+        }
+
+        /* Status Badges */
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .status-gray {
+            background-color: rgba(156, 163, 175, 0.2);
+            color: var(--status-gray);
+        }
+
+        .status-amber {
+            background-color: rgba(245, 158, 11, 0.2);
+            color: var(--status-amber);
+        }
+
+        .status-green {
+            background-color: rgba(16, 185, 129, 0.2);
+            color: var(--status-green);
+        }
+
+        .status-deep {
+            background-color: rgba(4, 120, 87, 0.2);
+            color: var(--status-deep-green);
+        }
+
+        /* Tables */
+        .table-container {
+            background-color: var(--bg-surface);
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            margin-top: 24px;
+        }
+
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Custom scrollbar to force visibility on mobile */
+        .table-responsive::-webkit-scrollbar {
+            height: 6px;
+            display: block;
+        }
+
+        .table-responsive::-webkit-scrollbar-track {
+            background: var(--bg-body);
+            border-radius: 3px;
+        }
+
+        .table-responsive::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 3px;
+            border: 1px solid var(--bg-body);
+        }
+
+        .table-responsive::-webkit-scrollbar-thumb:hover {
+            background: var(--color-primary);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 18px 24px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .data-table th {
+            background-color: var(--bg-surface-alt);
+            color: var(--text-muted);
+            font-size: var(--size-caption);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .data-table td {
+            color: var(--text-main);
+            font-size: 0.95rem;
+            vertical-align: middle;
+        }
+
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .data-table tr {
+            transition: background-color var(--transition-fast);
+        }
+
+        .data-table tbody tr:hover {
+            background-color: rgba(45, 122, 79, 0.03);
+        }
+
+        html[data-theme="dark"] .data-table tbody tr:hover {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        html[dir="rtl"] .data-table th,
+        html[dir="rtl"] .data-table td {
+            text-align: right;
+        }
+
+        .table-action-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            transition: all var(--transition-fast);
+        }
+
+        .table-action-btn:hover {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+            background-color: rgba(45, 122, 79, 0.05);
+            transform: translateY(-1px);
+        }
+
+        /* Upload Zone */
+        .upload-zone {
+            border: 2px dashed var(--border-color);
+            border-radius: var(--radius);
+            padding: 48px 24px;
+            text-align: center;
+            background-color: var(--bg-surface-alt);
+            transition: all var(--transition-fast);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .upload-zone.is-dragover {
+            border-color: var(--color-primary);
+            background-color: rgba(45, 122, 79, 0.05);
+            transform: scale(1.02);
+        }
+
+        .upload-zone input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        /* Form Steps */
+        .claim-step {
+            display: none;
+        }
+
+        .claim-step.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .step-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .step-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--border-color);
+        }
+
+        .step-indicator.active {
+            background-color: var(--color-accent);
+            transform: scale(1.2);
+        }
+
+        .step-indicator.completed {
+            background-color: var(--color-primary);
+        }
+
+        /* Chart */
+        .chart-container {
+            height: 300px;
+            display: flex;
+            align-items: flex-end;
+            gap: 16px;
+            padding: 24px 0 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .chart-bar {
+            flex: 1;
+            background-color: var(--bg-surface-alt);
+            border-radius: 4px 4px 0 0;
+            position: relative;
+            height: 100%;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .chart-bar-fill {
+            width: 100%;
+            background-color: var(--color-primary);
+            border-radius: 4px 4px 0 0;
+            transition: height 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .chart-label {
+            position: absolute;
+            bottom: -24px;
+            width: 100%;
+            text-align: center;
+            font-size: 10px;
+            color: var(--text-muted);
+        }
+
+        /* Toasts */
+        .toast-container {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: var(--z-toast);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        html[dir="rtl"] .toast-container {
+            right: auto;
+            left: 24px;
+        }
+
+        .toast {
+            background-color: var(--bg-surface);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-hover);
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border-left: 4px solid var(--color-primary);
+            width: 320px;
+        }
+
+        .toast-success {
+            border-color: var(--status-green);
+        }
+
+        .toast-success .toast-icon {
+            color: var(--status-green);
+        }
+
+        .toast-info {
+            border-color: var(--color-primary);
+        }
+
+        .toast-info .toast-icon {
+            color: var(--color-primary);
+        }
+
+        .toast-icon {
+            font-size: 24px;
+        }
+
+        .toast-content {
+            flex: 1;
+        }
+
+        .toast-title {
+            font-weight: bold;
+            margin-bottom: 4px;
+            color: var(--text-main);
+        }
+
+        .toast-message {
+            font-size: var(--size-caption);
+            color: var(--text-muted);
+        }
+
+        .toast-close {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .slide-in {
+            animation: slideIn 0.3s forwards;
+        }
+
+        .fade-out {
+            animation: fadeOut 0.3s forwards;
+        }
+
+        html[dir="rtl"] .slide-in {
+            animation: slideInRTL 0.3s forwards;
+        }
+
+        html[dir="rtl"] .fade-out {
+            animation: fadeOutRTL 0.3s forwards;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+
+        @keyframes slideInRTL {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOutRTL {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+
+            to {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .dash-sidebar {
+                transform: translateX(-100%);
+            }
+
+            html[dir="rtl"] .dash-sidebar {
+                transform: translateX(100%);
+            }
+
+            .dash-sidebar.open {
+                transform: translateX(0);
+            }
+
+            .dash-main {
+                margin-left: 0;
+                padding: 24px;
+                width: 100%;
+                max-width: 100%;
+                min-width: 0;
+            }
+
+            html[dir="rtl"] .dash-main {
+                margin-right: 0;
+                margin-left: 0;
+            }
+
+            .navbar .nav-actions {
+                display: flex !important;
+            }
+        }
+
+        .dash-menu-toggle {
+            color: var(--text-main);
+        }
+
+        .dash-menu-toggle i {
+            font-size: 28px;
+            color: var(--text-main);
+            display: block;
+        }
+
+        @media (min-width: 1025px) {
+            .dash-menu-toggle {
+                display: none !important;
+            }
+        }
+
+        /* Recent Activity Item Styles */
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color var(--transition-fast);
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-item:hover {
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+
+        html[data-theme="dark"] .activity-item:hover {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        .activity-icon-wrapper {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .activity-icon-wrapper.claim-icon {
+            background-color: rgba(45, 122, 79, 0.1);
+            color: var(--color-primary);
+        }
+
+        .activity-icon-wrapper.payment-icon {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--status-green);
+        }
+
+        .activity-details {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .activity-title {
+            font-weight: 600;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+
+        .activity-subtitle {
+            font-size: var(--size-caption);
+            color: var(--text-muted);
+            line-height: 1.3;
+        }
+
+        .activity-time {
+            font-size: var(--size-caption);
+            color: var(--text-muted);
+            white-space: nowrap;
+            flex-shrink: 0;
+            text-align: right;
+        }
+
+        @media (max-width: 576px) {
+            .activity-item {
+                flex-direction: row;
+                flex-wrap: wrap;
+                align-items: flex-start;
+                gap: 12px;
+                padding: 16px;
+            }
+
+            .activity-icon-wrapper {
+                width: 36px;
+                height: 36px;
+                font-size: 18px;
+            }
+
+            .activity-details {
+                flex: 1;
+                min-width: 150px;
+            }
+
+            .activity-time {
+                width: 100%;
+                text-align: left;
+                padding-left: 48px;
+                margin-top: 2px;
+            }
+
+            html[dir="rtl"] .activity-time {
+                text-align: right;
+                padding-left: 0;
+                padding-right: 48px;
+            }
+        }
+
+        /* My Plans View Styling */
+        .plan-card {
+            padding: 32px;
+            text-align: left;
+            align-items: stretch !important;
+        }
+
+        .plan-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 24px;
+        }
+
+        .plan-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .plan-name {
+            font-size: var(--size-h3);
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        .plan-description {
+            color: var(--text-muted);
+            margin-bottom: 0;
+        }
+
+        .plan-pricing {
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .plan-price {
+            font-size: 2.25rem;
+            font-family: var(--font-heading);
+            color: var(--color-primary);
+            line-height: 1.1;
+            margin-bottom: 8px;
+        }
+
+        .plan-period {
+            font-size: 1.125rem;
+            color: var(--text-muted);
+            font-family: var(--font-body);
+        }
+
+        .plan-billing-date {
+            color: var(--text-muted);
+            font-size: var(--size-caption);
+            margin-bottom: 0;
+        }
+
+        .plan-divider {
+            border: none;
+            border-top: 1px solid var(--border-color);
+            margin: 24px 0;
+        }
+
+        .plan-actions-wrapper {
+            display: flex;
+            gap: 16px;
+        }
+
+        .plan-btn {
+            padding: 12px 24px;
+        }
+
+        @media (max-width: 576px) {
+            .plan-card {
+                padding: 20px;
+            }
+
+            .plan-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+
+            .plan-pricing {
+                text-align: left;
+                align-items: flex-start;
+            }
+
+            .plan-price {
+                font-size: 1.75rem;
+            }
+
+            .plan-actions-wrapper {
+                flex-direction: column;
+                gap: 12px;
+                width: 100%;
+            }
+
+            .plan-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            html[dir="rtl"] .plan-pricing {
+                text-align: right;
+                align-items: flex-end;
+            }
+        }
+
+        /* Date Picker Icon Visibility in Dark Mode */
+        html[data-theme="dark"] input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+        }
+
+        /* Document Cards Hover Effects */
+        .doc-card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            cursor: pointer;
+            transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+        }
+
+        .doc-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--color-primary);
+        }
+
+        .doc-icon {
+            font-size: 32px;
+            color: var(--color-accent);
+            transition: transform var(--transition-fast);
+        }
+
+        .doc-card:hover .doc-icon {
+            transform: scale(1.1);
+        }
+
+        .doc-title {
+            font-weight: bold;
+            color: var(--text-main);
+        }
+
+        .doc-meta {
+            font-size: var(--size-caption);
+            color: var(--text-muted);
+        }
+
+        .doc-download-btn {
+            font-size: 20px;
+            color: var(--text-muted);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-fast);
+        }
+
+        .doc-card:hover .doc-download-btn {
+            background-color: var(--color-primary);
+            color: #fff;
+            transform: rotate(360deg);
+        }
+
+        /* Messages View Styles */
+        .message-list-card {
+            background-color: var(--bg-surface);
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .message-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 24px;
+            border-bottom: 1px solid var(--border-color);
+            transition: all var(--transition-fast);
+            cursor: pointer;
+        }
+
+        .message-item:last-child {
+            border-bottom: none;
+        }
+
+        .message-item:hover {
+            background-color: rgba(45, 122, 79, 0.04);
+            padding-left: 32px;
+        }
+
+        html[dir="rtl"] .message-item:hover {
+            padding-left: 24px;
+            padding-right: 32px;
+        }
+
+        html[data-theme="dark"] .message-item:hover {
+            background-color: rgba(255, 255, 255, 0.03);
+        }
+
+        .message-item:hover .message-subject {
+            color: var(--color-primary);
+        }
+
+        .message-item.unread {
+            background-color: rgba(45, 122, 79, 0.03);
+        }
+
+        html[data-theme="dark"] .message-item.unread {
+            background-color: rgba(45, 122, 79, 0.08);
+        }
+
+        .message-status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: transparent;
+            margin-top: 6px;
+            flex-shrink: 0;
+        }
+
+        .message-item.unread .message-status-dot {
+            background-color: var(--color-accent);
+            box-shadow: 0 0 0 3px rgba(232, 107, 58, 0.15);
+        }
+
+        .message-content-wrapper {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .message-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 16px;
+            margin-bottom: 6px;
+        }
+
+        .message-subject {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        .message-date {
+            font-size: var(--size-caption);
+            color: var(--text-muted);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .message-snippet {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin: 0;
+            line-height: 1.4;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        @media (max-width: 576px) {
+            .message-item {
+                padding: 16px;
+                gap: 12px;
+            }
+
+            .message-header-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+            }
+
+            .message-date {
+                font-size: 0.75rem;
+                margin-top: 2px;
+            }
+
+            .message-status-dot {
+                margin-top: 5px;
+            }
+
+            #view-messages .dash-topbar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+
+            #view-messages .dash-topbar .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* Delete Account Button Hover Effects */
+        .btn-delete-account {
+            background-color: transparent;
+            border: 1px solid var(--status-error) !important;
+            color: var(--status-error) !important;
+            transition: all var(--transition-fast) !important;
+        }
+
+        .btn-delete-account:hover {
+            background-color: var(--status-error) !important;
+            color: #fff !important;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.35) !important;
+            transform: scale(1.04) !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR (Simplified for Dashboard) -->
+    <header class="navbar" style="background-color: var(--bg-surface); box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
+        <div class="container nav-container" style="max-width: 100%; padding: 0 24px;">
+            <div style="display: flex; align-items: center; gap: 16px;">
+                <button class="hamburger dash-menu-toggle">
+                    <i class="ph ph-list"></i>
+                </button>
+                <a href="index.html" class="nav-brand">
+                    <i class="ph-fill ph-paw-print"></i>
+                    Pawsure
+                </a>
+            </div>
+
+            <div class="nav-actions">
+                <button class="icon-btn theme-toggle" aria-label="Toggle Dark Mode">
+                    <div class="theme-icon">
+                        <i class="ph ph-sun icon-sun"></i>
+                        <i class="ph ph-moon icon-moon"></i>
+                    </div>
+                </button>
+                <button class="icon-btn rtl-toggle" aria-label="Toggle RTL">
+                    <i class="ph ph-arrows-left-right"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="dash-layout">
+        <!-- SIDEBAR -->
+        <aside class="dash-sidebar">
+            <div
+                style="color: var(--text-muted); font-size: var(--size-caption); text-transform: uppercase; margin: 16px 0 8px 16px;">
+                Menu</div>
+            <a class="sidebar-link active" data-target="view-overview"><i class="ph ph-squares-four"></i> Overview</a>
+            <a class="sidebar-link" data-target="view-pets"><i class="ph ph-paw-print"></i> My Pets</a>
+            <a class="sidebar-link" data-target="view-plans"><i class="ph ph-shield-check"></i> My Plans</a>
+
+            <div
+                style="color: var(--text-muted); font-size: var(--size-caption); text-transform: uppercase; margin: 24px 0 8px 16px;">
+                Claims & Billing</div>
+            <a class="sidebar-link" data-target="view-submit-claim"><i class="ph ph-plus-circle"></i> Submit a Claim</a>
+            <a class="sidebar-link" data-target="view-claims"><i class="ph ph-file-text"></i> My Claims</a>
+            <a class="sidebar-link" data-target="view-reimbursements"><i class="ph ph-money"></i> Reimbursements</a>
+
+            <div
+                style="color: var(--text-muted); font-size: var(--size-caption); text-transform: uppercase; margin: 24px 0 8px 16px;">
+                More</div>
+            <a class="sidebar-link" data-target="view-documents"><i class="ph ph-folder"></i> Documents</a>
+            <a class="sidebar-link" data-target="view-messages"><i class="ph ph-chat-circle"></i> Messages <span
+                    class="badge">2</span></a>
+            <a class="sidebar-link" data-target="view-settings"><i class="ph ph-user"></i> Profile</a>
+            <div style="margin-top: auto;">
+                <a href="index.html" class="sidebar-link" style="color: var(--status-error);"><i
+                        class="ph ph-sign-out"></i> Logout</a>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="dash-main">
+
+            <!-- OVERVIEW VIEW -->
+            <div id="view-overview" class="dash-view active">
+                <div class="dash-topbar">
+                    <h1 class="dash-title">Hello, Sarah 👋</h1>
+                </div>
+
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-title">Active Policies</div>
+                        <div class="kpi-value count-up" data-count="2">0</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-title">Claims </div>
+                        <div class="kpi-value count-up" data-count="1">0</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-title">Total Reimbursed</div>
+                        <div class="kpi-value">$<span class="count-up" data-count="1250">0</span></div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-title">Next Premium Due</div>
+                        <div class="kpi-value" style="font-size: 1.5rem; margin-top: 10px; color: var(--text-main);">Oct
+                            15, 2023</div>
+                    </div>
+                </div>
+
+                <h3 style="margin-bottom: 24px;">Recent Claim Status</h3>
+                <div class="timeline-card">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                        <div>
+                            <span style="font-weight: bold;">Claim #CLM-8924</span> for <span
+                                style="color: var(--color-primary);">Bella</span>
+                        </div>
+                        <div class="status-badge status-amber">Under Review</div>
+                    </div>
+                    <p style="color: var(--text-muted); font-size: var(--size-caption);">Emergency visit - Swallow
+                        foreign object ($850.00)</p>
+
+                    <div class="timeline">
+                        <!-- Width inline style sets the progress bar fill -->
+                        <div class="timeline-progress" style="width: 37%;"></div>
+
+                        <div class="timeline-node completed">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-label">Submitted</div>
+                        </div>
+                        <div class="timeline-node active">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-label">Under Review</div>
+                        </div>
+                        <div class="timeline-node">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-label">Approved</div>
+                        </div>
+                        <div class="timeline-node">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-label">Paid</div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 style="margin-bottom: 24px;">Recent Activity</h3>
+                <div class="timeline-card" style="padding: 0;">
+                    <div class="activity-item">
+                        <div class="activity-icon-wrapper claim-icon">
+                            <i class="ph-fill ph-file-arrow-up"></i>
+                        </div>
+                        <div class="activity-details">
+                            <div class="activity-title">Claim #CLM-8924 Submitted</div>
+                            <div class="activity-subtitle">Bella - Emergency Visit</div>
+                        </div>
+                        <div class="activity-time">Oct 12, 10:30 AM</div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon-wrapper payment-icon">
+                            <i class="ph-fill ph-check-circle"></i>
+                        </div>
+                        <div class="activity-details">
+                            <div class="activity-title">Premium Payment Successful</div>
+                            <div class="activity-subtitle">$45.00 via Visa ending in 4242</div>
+                        </div>
+                        <div class="activity-time">Oct 1, 09:00 AM</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MY PETS VIEW -->
+            <div id="view-pets" class="dash-view">
+                <div class="dash-topbar">
+                    <h1 class="dash-title">My Pets</h1>
+                    <button class="btn btn-primary"><i class="ph ph-plus"></i> Add Pet</button>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px;">
+                    <!-- Pet 1 -->
+                    <div class="kpi-card" style="display: flex; flex-direction: row; gap: 24px; align-items: center;">
+                        <img src="https://images.unsplash.com/photo-1552053831-71594a27632d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
+                            alt="Bella" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;">
+                        <div>
+                            <h3 style="margin-bottom: 4px;">Bella</h3>
+                            <p style="color: var(--text-muted); font-size: var(--size-caption); margin-bottom: 16px;">
+                                Dog · Golden Retriever · 4 Yrs</p>
+                            <a href="#" class="btn btn-outline" style="padding: 8px 16px; font-size: 0.875rem;">Edit
+                                Profile</a>
+                        </div>
+                    </div>
+                    <!-- Pet 2 -->
+                    <div class="kpi-card" style="display: flex; flex-direction: row; gap: 24px; align-items: center;">
+                        <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
+                            alt="Oliver" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;">
+                        <div>
+                            <h3 style="margin-bottom: 4px;">Oliver</h3>
+                            <p style="color: var(--text-muted); font-size: var(--size-caption); margin-bottom: 16px;">
+                                Cat · Tabby · 2 Yrs</p>
+                            <a href="#" class="btn btn-outline" style="padding: 8px 16px; font-size: 0.875rem;">Edit
+                                Profile</a>
+                        </div>
+                    </div>
+                    <!-- Pet 3 -->
+                    <div class="kpi-card" style="display: flex; flex-direction: row; gap: 24px; align-items: center;">
+                        <img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
+                            alt="Max" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;">
+                        <div>
+                            <h3 style="margin-bottom: 4px;">Max</h3>
+                            <p style="color: var(--text-muted); font-size: var(--size-caption); margin-bottom: 16px;">
+                                Dog · French Bulldog · 1 Yr</p>
+                            <a href="#" class="btn btn-outline" style="padding: 8px 16px; font-size: 0.875rem;">Edit
+                                Profile</a>
+                        </div>
+                    </div>
+                    <!-- Pet 4 -->
+                    <div class="kpi-card" style="display: flex; flex-direction: row; gap: 24px; align-items: center;">
+                        <img src="https://images.unsplash.com/photo-1592194996308-7b43878e84a6?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
+                            alt="Luna" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;">
+                        <div>
+                            <h3 style="margin-bottom: 4px;">Luna</h3>
+                            <p style="color: var(--text-muted); font-size: var(--size-caption); margin-bottom: 16px;">
+                                Cat · Siamese · 3 Yrs</p>
+                            <a href="#" class="btn btn-outline" style="padding: 8px 16px; font-size: 0.875rem;">Edit
+                                Profile</a>
+                        </div>
+                    </div>
+                    <!-- Pet 5 -->
+                    <div class="kpi-card" style="display: flex; flex-direction: row; gap: 24px; align-items: center;">
+                        <img src="https://images.unsplash.com/photo-1589941013453-ec89f33b5e95?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
+                            alt="Rocky" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;">
+                        <div>
+                            <h3 style="margin-bottom: 4px;">Rocky</h3>
+                            <p style="color: var(--text-muted); font-size: var(--size-caption); margin-bottom: 16px;">
+                                Dog · German Shepherd · 5 Yrs</p>
+                            <a href="#" class="btn btn-outline" style="padding: 8px 16px; font-size: 0.875rem;">Edit
+                                Profile</a>
+                        </div>
+                    </div>
+                    <!-- Pet 6 -->
+                    <div class="kpi-card" style="display: flex; flex-direction: row; gap: 24px; align-items: center;">
+                        <img src="https://images.unsplash.com/photo-1618826411640-d6df44dd3f7a?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
+                            alt="Cleo" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;">
+                        <div>
+                            <h3 style="margin-bottom: 4px;">Cleo</h3>
+                            <p style="color: var(--text-muted); font-size: var(--size-caption); margin-bottom: 16px;">
+                                Cat · Persian · 6 Yrs</p>
+                            <a href="#" class="btn btn-outline" style="padding: 8px 16px; font-size: 0.875rem;">Edit
+                                Profile</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MY PLANS VIEW -->
+            <div id="view-plans" class="dash-view">
+                <div class="dash-topbar">
+                    <h1 class="dash-title">My Plans</h1>
+                </div>
+
+                <div class="kpi-card plan-card"
+                    style="margin-bottom: 32px; border-left: 4px solid var(--color-primary);">
+                    <div class="plan-header">
+                        <div class="plan-info">
+                            <div class="status-badge status-green" style="margin-bottom: 16px;">Active</div>
+                            <h3 class="plan-name">Plus Coverage</h3>
+                            <p class="plan-description">Covers Bella and Oliver</p>
+                        </div>
+                        <div class="plan-pricing">
+                            <div class="plan-price">$90<span class="plan-period">/mo</span></div>
+                            <p class="plan-billing-date">Next billing date: Oct 15</p>
+                        </div>
+                    </div>
+                    <hr class="plan-divider">
+                    <div class="plan-actions-wrapper">
+                        <button class="btn btn-primary plan-btn">Upgrade Plan</button>
+                        <button class="btn btn-outline plan-btn">Cancel Policy</button>
+                    </div>
+                </div>
+
+                <div class="kpi-card plan-card"
+                    style="margin-bottom: 32px; border-left: 4px solid var(--status-amber);">
+                    <div class="plan-header">
+                        <div class="plan-info">
+                            <div class="status-badge status-amber" style="margin-bottom: 16px;">Pending Renewal</div>
+                            <h3 class="plan-name">Basic Coverage</h3>
+                            <p class="plan-description">Covers Max and Luna</p>
+                        </div>
+                        <div class="plan-pricing">
+                            <div class="plan-price">$45<span class="plan-period">/mo</span></div>
+                            <p class="plan-billing-date">Next billing date: Nov 01</p>
+                        </div>
+                    </div>
+                    <hr class="plan-divider">
+                    <div class="plan-actions-wrapper">
+                        <button class="btn btn-primary plan-btn">Renew Plan</button>
+                        <button class="btn btn-outline plan-btn">View Details</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUBMIT CLAIM VIEW -->
+            <div id="view-submit-claim" class="dash-view">
+                <div class="dash-topbar">
+                    <h1 class="dash-title">Submit a Claim</h1>
+                </div>
+
+                <div class="timeline-card">
+                    <div class="step-indicators">
+                        <div class="step-indicator active"></div>
+                        <div class="step-indicator"></div>
+                        <div class="step-indicator"></div>
+                    </div>
+
+                    <form class="needs-validation" novalidate id="claimForm">
+                        <!-- Step 1 -->
+                        <div class="claim-step active">
+                            <h3 style="text-align: center; margin-bottom: 32px;">Incident Details</h3>
+                            <div class="form-group">
+                                <label class="form-label" for="claim-pet">Which pet is this for?</label>
+                                <select class="form-control" id="claim-pet" required>
+                                    <option value="" disabled selected>Select pet...</option>
+                                    <option value="bella">Bella</option>
+                                    <option value="oliver">Oliver</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="claim-date">Date of Service</label>
+                                <input type="date" class="form-control" id="claim-date" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="claim-reason">Reason for Visit</label>
+                                <select class="form-control" id="claim-reason" required>
+                                    <option value="" disabled selected>Select reason...</option>
+                                    <option value="accident">Accident / Injury</option>
+                                    <option value="illness">Illness</option>
+                                    <option value="wellness">Wellness / Routine</option>
+                                </select>
+                            </div>
+                            <div style="text-align: right; margin-top: 32px;">
+                                <button type="button" class="btn btn-primary btn-next-step">Next Step <i
+                                        class="ph ph-arrow-right"></i></button>
+                            </div>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="claim-step">
+                            <h3 style="text-align: center; margin-bottom: 32px;">Upload Invoice</h3>
+                            <p style="text-align: center; color: var(--text-muted); margin-bottom: 32px;">Please upload
+                                an itemized invoice showing the services provided and amount paid.</p>
+
+                            <div class="upload-zone" id="invoiceUpload">
+                                <i class="ph ph-upload-simple"
+                                    style="font-size: 48px; color: var(--color-primary); margin-bottom: 16px;"></i>
+                                <label class="upload-label" for="claim-invoice"
+                                    style="font-weight: bold; margin-bottom: 8px; display: block; cursor: pointer;">Drag
+                                    & drop your file here</label>
+                                <div style="color: var(--text-muted); font-size: var(--size-caption);">or click to
+                                    browse (PDF, JPG, PNG up to 10MB)</div>
+                                <input type="file" id="claim-invoice" accept=".pdf, .jpg, .jpeg, .png" required>
+                            </div>
+
+                            <div style="display: flex; justify-content: space-between; margin-top: 32px;">
+                                <button type="button" class="btn btn-outline btn-prev-step"><i
+                                        class="ph ph-arrow-left"></i> Back</button>
+                                <button type="button" class="btn btn-primary btn-next-step">Next Step <i
+                                        class="ph ph-arrow-right"></i></button>
+                            </div>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="claim-step">
+                            <h3 style="text-align: center; margin-bottom: 32px;">Review & Submit</h3>
+
+                            <div
+                                style="background-color: var(--bg-surface-alt); padding: 24px; border-radius: var(--radius); margin-bottom: 32px;">
+                                <p><strong>Pet:</strong> Bella</p>
+                                <p><strong>Date:</strong> Oct 12, 2023</p>
+                                <p><strong>Reason:</strong> Accident / Injury</p>
+                                <p><strong>Files attached:</strong> vet_invoice_oct12.pdf</p>
+                            </div>
+
+                            <div style="display: flex; justify-content: space-between; margin-top: 32px;">
+                                <button type="button" class="btn btn-outline btn-prev-step"><i
+                                        class="ph ph-arrow-left"></i> Back</button>
+                                <button type="submit" class="btn btn-primary">Submit Claim</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- MY CLAIMS VIEW -->
+            <div id="view-claims" class="dash-view">
+                <div class="dash-topbar">
+                    <h1 class="dash-title">My Claims</h1>
+                </div>
+
+                <div class="table-container">
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Claim ID</th>
+                                    <th>Pet</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="font-weight: bold; color: var(--color-primary);">CLM-8924</td>
+                                    <td>Bella</td>
+                                    <td>Oct 12, 2023</td>
+                                    <td><span class="status-badge status-amber">Under Review</span></td>
+                                    <td><a href="#" class="table-action-btn">View</a></td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold; color: var(--color-primary);">CLM-8451</td>
+                                    <td>Oliver</td>
+                                    <td>Aug 05, 2023</td>
+                                    <td><span class="status-badge status-deep">Paid</span></td>
+                                    <td><a href="#" class="table-action-btn">View</a></td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold; color: var(--color-primary);">CLM-7120</td>
+                                    <td>Bella</td>
+                                    <td>Mar 22, 2023</td>
+                                    <td><span class="status-badge status-deep">Paid</span></td>
+                                    <td><a href="#" class="table-action-btn">View</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- REIMBURSEMENTS VIEW -->
+            <div id="view-reimbursements" class="dash-view">
+                <div class="dash-topbar">
+                    <h1 class="dash-title">Reimbursements</h1>
+                </div>
+
+                <div class="timeline-card">
+                    <h3 style="margin-bottom: 24px;">Reimbursement History (2023)</h3>
+                    <div class="chart-container">
+                        <div class="chart-bar">
+                            <div class="chart-bar-fill" data-height="10"></div>
+                            <div class="chart-label">Jan</div>
+                        </div>
+                        <div class="chart-bar">
+                            <div class="chart-bar-fill" data-height="0"></div>
+                            <div class="chart-label">Feb</div>
+                        </div>
+                        <div class="chart-bar">
+                            <div class="chart-bar-fill" data-height="80"></div>
+                            <div class="chart-label">Mar</div>
+                        </div>
+                        <div class="chart-bar">
+                            <div class="chart-bar-fill" data-height="0"></div>
+                            <div class="chart-label">Apr</div>
+                        </div>
+                        <div class="chart-bar">
+                            <div class="chart-bar-fill" data-height="0"></div>
+                            <div class="chart-label">May</div>
+                        </div>
+                        <div class="chart-bar">
+                            <div class="chart-bar-fill" data-height="0"></div>
+                            <div class="chart-label">Jun</div>
+                        </div>
+                        <div class="chart-bar">
+                            <div class="chart-bar-fill" data-height="0"></div>
+                            <div class="chart-label">Jul</div>
+                        </div>
+                        <div class="chart-bar">
+                            <div class="chart-bar-fill" data-height="25"></div>
+                            <div class="chart-label">Aug</div>
+                        </div>
+                        <div class="chart-bar">
+                            <div class="chart-bar-fill" data-height="0"></div>
+                            <div class="chart-label">Sep</div>
+                        </div>
+                        <div class="chart-bar">
+                            <div class="chart-bar-fill" data-height="0"></div>
+                            <div class="chart-label">Oct</div>
+                        </div>
+                        <div class="chart-bar">
+                            <div class="chart-bar-fill" data-height="0"></div>
+                            <div class="chart-label">Nov</div>
+                        </div>
+                        <div class="chart-bar">
+                            <div class="chart-bar-fill" data-height="0"></div>
+                            <div class="chart-label">Dec</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Date Paid</th>
+                                    <th>Claim ID</th>
+                                    <th>Method</th>
+                                    <th>Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Aug 08, 2023</td>
+                                    <td style="font-weight: bold; color: var(--color-primary);">CLM-8451</td>
+                                    <td>Direct Deposit (...4242)</td>
+                                    <td style="color: var(--status-green); font-weight: bold;">$150.00</td>
+                                </tr>
+                                <tr>
+                                    <td>Mar 25, 2023</td>
+                                    <td style="font-weight: bold; color: var(--color-primary);">CLM-7120</td>
+                                    <td>Direct Deposit (...4242)</td>
+                                    <td style="color: var(--status-green); font-weight: bold;">$1,100.00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DOCUMENTS VIEW -->
+            <div id="view-documents" class="dash-view">
+                <div class="dash-topbar">
+                    <h1 class="dash-title">Documents</h1>
+                </div>
+
+                <h3 style="margin-bottom: 24px;">Policy Documents</h3>
+                <div
+                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; margin-bottom: 48px;">
+                    <div class="kpi-card doc-card">
+                        <i class="ph-fill ph-file-pdf doc-icon"></i>
+                        <div style="flex: 1;">
+                            <div class="doc-title">Policy Declarations</div>
+                            <div class="doc-meta">PDF · 1.2MB</div>
+                        </div>
+                        <div class="doc-download-btn">
+                            <i class="ph ph-download-simple"></i>
+                        </div>
+                    </div>
+                    <div class="kpi-card doc-card">
+                        <i class="ph-fill ph-file-pdf doc-icon"></i>
+                        <div style="flex: 1;">
+                            <div class="doc-title">Terms & Conditions</div>
+                            <div class="doc-meta">PDF · 3.4MB</div>
+                        </div>
+                        <div class="doc-download-btn">
+                            <i class="ph ph-download-simple"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 style="margin-bottom: 24px;">Upload Document</h3>
+                <div class="upload-zone">
+                    <i class="ph ph-upload-simple"
+                        style="font-size: 48px; color: var(--color-primary); margin-bottom: 16px;"></i>
+                    <label class="upload-label" for="doc-upload"
+                        style="font-weight: bold; margin-bottom: 8px; display: block; cursor: pointer;">Drag & drop your
+                        file here</label>
+                    <div style="color: var(--text-muted); font-size: var(--size-caption);">or click to browse</div>
+                    <input type="file" id="doc-upload" accept=".pdf, .jpg, .jpeg, .png">
+                </div>
+            </div>
+
+            <!-- MESSAGES VIEW -->
+            <div id="view-messages" class="dash-view">
+                <div class="dash-topbar">
+                    <h1 class="dash-title">Messages</h1>
+                    <button class="btn btn-primary"><i class="ph ph-pencil-simple"></i> New Message</button>
+                </div>
+
+                <div class="message-list-card">
+                    <div class="message-item unread">
+                        <span class="message-status-dot"></span>
+                        <div class="message-content-wrapper">
+                            <div class="message-header-row">
+                                <h4 class="message-subject">Update on Claim #CLM-8924</h4>
+                                <span class="message-date">Today</span>
+                            </div>
+                            <p class="message-snippet">We need a bit more info from your vet...</p>
+                        </div>
+                    </div>
+                    <div class="message-item">
+                        <span class="message-status-dot"></span>
+                        <div class="message-content-wrapper">
+                            <div class="message-header-row">
+                                <h4 class="message-subject">Welcome to Pawsure!</h4>
+                                <span class="message-date">Oct 1</span>
+                            </div>
+                            <p class="message-snippet">Your policy is now active. Here's what...</p>
+                        </div>
+                    </div>
+                    <div class="message-item">
+                        <span class="message-status-dot"></span>
+                        <div class="message-content-wrapper">
+                            <div class="message-header-row">
+                                <h4 class="message-subject">Claim #CLM-8451 Approved</h4>
+                                <span class="message-date">Sep 28</span>
+                            </div>
+                            <p class="message-snippet">Good news! Your claim for Oliver's visit has been approved and
+                                payment is on the way.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SETTINGS VIEW -->
+            <div id="view-settings" class="dash-view">
+                <div class="dash-topbar">
+                    <h1 class="dash-title">Profile</h1>
+                </div>
+
+                <div class="timeline-card">
+                    <h3 style="margin-bottom: 24px;">Profile Settings</h3>
+                    <form class="needs-validation" novalidate>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                            <div class="form-group">
+                                <label class="form-label" for="settings-first-name">First Name</label>
+                                <input type="text" class="form-control" id="settings-first-name" value="Sarah" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="settings-last-name">Last Name</label>
+                                <input type="text" class="form-control" id="settings-last-name" value="Mitchell"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="settings-email">Email Address</label>
+                            <input type="email" class="form-control" id="settings-email" value="sarah@example.com"
+                                required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
+                </div>
+
+                <div class="timeline-card">
+                    <h3 style="margin-bottom: 24px;">Danger Zone</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 24px;">Once you delete your account, there is no
+                        going back. Please be certain.</p>
+                    <button class="btn btn-delete-account">Delete Account</button>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Modals or overlays could go here -->
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/dashboard.js"></script>
+    <script>
+        // Simple View Routing for Dashboard Template
+        document.addEventListener('DOMContentLoaded', () => {
+            const links = document.querySelectorAll('.sidebar-link[data-target]');
+            const views = document.querySelectorAll('.dash-view');
+
+            links.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    // Remove active from all links and views
+                    links.forEach(l => l.classList.remove('active'));
+                    views.forEach(v => v.classList.remove('active'));
+
+                    // Add active to clicked link
+                    link.classList.add('active');
+
+                    // Show target view
+                    const targetId = link.getAttribute('data-target');
+                    const targetView = document.getElementById(targetId);
+                    if (targetView) {
+                        targetView.classList.add('active');
+                        // re-trigger animations if needed, e.g. charts
+                        if (targetId === 'view-reimbursements') {
+                            const bars = targetView.querySelectorAll('.chart-bar-fill');
+                            bars.forEach(bar => {
+                                bar.style.height = '0%';
+                                setTimeout(() => {
+                                    bar.style.height = bar.getAttribute('data-height') + '%';
+                                }, 100);
+                            });
+                        }
+                    }
+
+                    // Close sidebar on mobile
+                    if (window.innerWidth <= 1024) {
+                        document.querySelector('.dash-sidebar').classList.remove('open');
+                    }
+                });
+            });
+
+            // Mobile sidebar toggle
+            const toggle = document.querySelector('.dash-menu-toggle');
+            if (toggle) {
+                toggle.addEventListener('click', () => {
+                    document.querySelector('.dash-sidebar').classList.toggle('open');
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

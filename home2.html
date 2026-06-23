@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pawsure | Coverage That Cares</title>
+    <meta name="description"
+        content="Pawsure provides warm, reliable pet insurance for emotionally invested pet owners.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..800&display=swap"
+        rel="stylesheet">
+
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/rtl.css">
+
+    <style>
+        /* Home 2 Specific Styles */
+        .hero-split {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            min-height: calc(100vh - 80px);
+            padding-top: 80px;
+            /* offset navbar */
+        }
+
+        .hero-text-side {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 5% 8%;
+            background: linear-gradient(135deg, var(--bg-body) 50%, var(--bg-surface-alt) 100%);
+            z-index: 2;
+        }
+
+        .hero-img-side {
+            position: relative;
+            background-image: url('assets/images/hero-split.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        /* Floating Cards */
+        .floating-hero-card {
+            animation: floatCard 6s infinite ease-in-out;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            background-color: rgba(253, 251, 247, 0.9) !important;
+        }
+
+        @keyframes floatCard {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-15px) rotate(1deg);
+            }
+        }
+
+        /* Split Screen Animation */
+        .slide-in-left {
+            animation: slideInLeft 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        .slide-in-right {
+            animation: slideInRight 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-40px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(40px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Hero text styles */
+        .hero-title {
+            margin-bottom: 24px;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-family: var(--font-heading);
+            line-height: 1.1;
+        }
+
+        .hero-subtitle {
+            font-size: var(--size-lead);
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .hero-input-group {
+            background-color: var(--bg-body);
+            padding: 8px;
+            border-radius: 99px;
+            display: flex;
+            gap: 8px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+            align-items: center;
+            margin-bottom: 24px;
+            width: 100%;
+            max-width: 450px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-input-group i {
+            color: var(--color-primary);
+            font-size: 24px;
+            margin-left: 16px;
+        }
+
+        .hero-input-group input {
+            border: none;
+            background: transparent;
+            font-size: 1rem;
+            color: var(--text-main);
+            flex: 1;
+            outline: none;
+            padding: 8px 4px;
+        }
+
+        .hero-input-group a {
+            border-radius: 99px;
+            padding: 12px 24px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 1024px) and (min-width: 769px) {
+            .hero-split {
+                min-height: 550px;
+                margin: 40px 24px;
+                border-radius: var(--radius);
+                overflow: hidden;
+                box-shadow: var(--shadow);
+            }
+
+            .hero-text-side {
+                padding: 6% 4%;
+            }
+
+            .hero-split h1 {
+                font-size: 2.75rem !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-split {
+                grid-template-columns: 1fr;
+                min-height: auto;
+            }
+
+            .hero-text-side {
+                padding: 100px 24px 60px;
+            }
+
+            .hero-img-side {
+                min-height: 480px;
+                background-attachment: scroll;
+                /* Disable parallax on mobile */
+            }
+
+            .hero-title {
+                font-size: clamp(2rem, 9vw, 2.5rem);
+                margin-bottom: 16px;
+                word-wrap: break-word;
+            }
+
+            .hero-subtitle {
+                font-size: 1.125rem;
+                margin-bottom: 24px;
+            }
+
+            .hero-input-group {
+                border-radius: 20px;
+                flex-direction: column;
+                padding: 12px;
+                align-items: stretch;
+                gap: 12px;
+            }
+
+            .hero-input-group i {
+                display: none;
+            }
+
+            .hero-input-group input {
+                padding: 12px 16px !important;
+                border: 1px solid var(--border-color) !important;
+                border-radius: var(--radius-sm);
+                background-color: var(--bg-surface-alt) !important;
+                text-align: center;
+                width: 100%;
+            }
+
+            .hero-input-group a {
+                width: 100%;
+                text-align: center;
+                border-radius: var(--radius-sm) !important;
+                padding: 12px !important;
+            }
+        }
+
+        /* Marquee styles */
+        .marquee-section {
+            background-color: var(--bg-surface-alt);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 24px 0;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+        }
+
+        .marquee-section::before,
+        .marquee-section::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            width: 150px;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .marquee-section::before {
+            left: 0;
+            background: linear-gradient(to right, var(--bg-body), transparent);
+        }
+
+        .marquee-section::after {
+            right: 0;
+            background: linear-gradient(to left, var(--bg-body), transparent);
+        }
+
+        .marquee-track {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            width: max-content;
+            animation: marquee-anim 30s linear infinite;
+        }
+
+        .marquee-track:hover {
+            animation-play-state: paused;
+        }
+
+        .marquee-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .marquee-item i {
+            font-size: 1.5rem;
+            color: var(--color-primary);
+        }
+
+        @keyframes marquee-anim {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(calc(-50% - 30px));
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .slide-in-left,
+            .slide-in-right,
+            .typewriter {
+                animation: none !important;
+                border-right: none;
+                width: auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .brand-promise-grid {
+                grid-template-columns: 1fr !important;
+                gap: 40px !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .bento-grid {
+                grid-template-columns: 1fr !important;
+                grid-template-rows: repeat(3, 240px) !important;
+                gap: 16px !important;
+            }
+
+            .bento-grid>div {
+                grid-row: auto !important;
+                grid-column: auto !important;
+                height: 100% !important;
+            }
+        }
+
+        .btn-cta-contact {
+            padding: 16px 40px;
+            font-size: 1.125rem;
+            background-color: #ffffff;
+            color: var(--color-primary);
+            font-weight: var(--weight-btn);
+            border-radius: var(--radius);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+
+        .btn-cta-contact:hover {
+            background-color: var(--color-secondary) !important;
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            color: var(--color-primary) !important;
+        }
+
+        /* Coverage plans grid styles */
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        /* Tablet View (768px) */
+        @media (max-width: 1023px) and (min-width: 481px) {
+            .plans-grid {
+                display: flex !important;
+                flex-wrap: wrap !important;
+                justify-content: center !important;
+                gap: 32px !important;
+            }
+
+            .plans-grid>.stagger-item {
+                width: calc(50% - 16px) !important;
+                min-width: 280px !important;
+            }
+
+            .plans-grid>.stagger-item:nth-child(3) {
+                width: calc(50% - 16px) !important;
+            }
+        }
+
+        /* Mobile View (480px and below) */
+        @media (max-width: 480px) {
+            .plans-grid {
+                grid-template-columns: 1fr !important;
+                gap: 24px !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="nav-brand">
+                <i class="ph-fill ph-paw-print"></i>
+                Pawsure
+            </a>
+
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="home2.html" class="nav-link active">Home 2</a>
+                <a href="services.html" class="nav-link">Coverage Plans</a>
+                <a href="claims-info.html" class="nav-link">Claims</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                <a href="dashboard.html" class="nav-link">Dashboard</a>
+            </nav>
+
+            <div class="nav-actions">
+                <button class="icon-btn theme-toggle" aria-label="Toggle Dark Mode">
+                    <div class="theme-icon">
+                        <i class="ph ph-sun icon-sun"></i>
+                        <i class="ph ph-moon icon-moon"></i>
+                    </div>
+                </button>
+                <button class="icon-btn rtl-toggle" aria-label="Toggle RTL">
+                    <i class="ph ph-arrows-left-right"></i>
+                </button>
+                <a href="login.html" class="btn btn-primary">Login</a>
+            </div>
+
+            <button class="hamburger" aria-label="Toggle Menu">
+                <i class="ph ph-list"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- DRAWER & OVERLAY -->
+    <div class="drawer-overlay"></div>
+    <aside class="nav-drawer">
+        <!-- ... drawer links matching above ... -->
+        <div class="drawer-links">
+            <a href="index.html" class="drawer-link">Home</a>
+            <a href="home2.html" class="drawer-link active">Home 2</a>
+            <a href="services.html" class="drawer-link">Coverage Plans</a>
+            <a href="claims-info.html" class="drawer-link">Claims</a>
+            <a href="about.html" class="drawer-link">About</a>
+            <a href="blog.html" class="drawer-link">Blog</a>
+            <a href="contact.html" class="drawer-link">Contact</a>
+            <a href="dashboard.html" class="drawer-link">Dashboard</a>
+            <a href="login.html" class="btn btn-primary" style="margin-top: 8px; width: 100%;">Login</a>
+        </div>
+        <div class="drawer-actions">
+            <button class="icon-btn theme-toggle" aria-label="Toggle Dark Mode">
+                <div class="theme-icon">
+                    <i class="ph ph-sun icon-sun"></i>
+                    <i class="ph ph-moon icon-moon"></i>
+                </div>
+            </button>
+            <button class="icon-btn rtl-toggle" aria-label="Toggle RTL">
+                <i class="ph ph-arrows-left-right"></i>
+            </button>
+        </div>
+    </aside>
+
+    <main>
+        <!-- SPLIT HERO -->
+        <section class="hero-split">
+            <div class="hero-text-side slide-in-left">
+                <div style="max-width: 500px;">
+                    <!-- Badge -->
+                    <div
+                        style="display: inline-flex; align-items: center; gap: 8px; background-color: var(--color-secondary); color: var(--color-primary); padding: 6px 16px; border-radius: 99px; font-size: 0.875rem; font-weight: bold; margin-bottom: 24px;">
+                        <span>✨</span> Warm, Reliable Pet Insurance
+                    </div>
+
+                    <h1 class="hero-title">
+                        Coverage that cares for every
+                        <span style="color: var(--color-primary); position: relative; display: inline-block;">
+                            paw.
+                            <span
+                                style="position: absolute; bottom: 8px; left: 0; width: 100%; height: 8px; background-color: var(--color-secondary); z-index: -1; border-radius: 4px;"></span>
+                        </span>
+                    </h1>
+
+                    <p class="hero-subtitle">
+                        Get transparent, reliable pet insurance tailored to your furry family members.</p>
+
+                    <!-- Premium Input Group -->
+                    <div class="hero-input-group">
+                        <i class="ph ph-paw-print"></i>
+                        <input type="text" placeholder="Enter your pet's name">
+                        <a href="services.html" class="btn btn-primary">Get Quote</a>
+                    </div>
+
+                    <!-- Feature Tags -->
+                    <div style="display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap; justify-content: center;">
+                        <span
+                            style="background-color: rgba(45,122,79,0.1); color: var(--color-primary); padding: 6px 14px; border-radius: 99px; font-size: 0.875rem; font-weight: bold; display: flex; align-items: center; gap: 6px;"><i
+                                class="ph-fill ph-check-circle"></i> Cancel anytime</span>
+                        <span
+                            style="background-color: rgba(45,122,79,0.1); color: var(--color-primary); padding: 6px 14px; border-radius: 99px; font-size: 0.875rem; font-weight: bold; display: flex; align-items: center; gap: 6px;"><i
+                                class="ph-fill ph-check-circle"></i> Use any vet</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-img-side slide-in-right">
+            </div>
+        </section>
+
+        <!-- Logo Marquee Section -->
+        <div class="marquee-section">
+            <div class="marquee-track">
+                <!-- Group 1 -->
+                <div class="marquee-item"><i class="ph ph-paw-print"></i> PawCare</div>
+                <div class="marquee-item"><i class="ph ph-cat"></i> FelineTrust</div>
+                <div class="marquee-item"><i class="ph ph-dog"></i> CanineShield</div>
+                <div class="marquee-item"><i class="ph ph-first-aid-kit"></i> VetAlliance</div>
+                <div class="marquee-item"><i class="ph ph-stethoscope"></i> PetMedics</div>
+                <div class="marquee-item"><i class="ph ph-leaf"></i> EcoVet</div>
+                <div class="marquee-item"><i class="ph ph-cookie"></i> Barks&Co</div>
+
+                <!-- Group 2 (Duplicate for loop) -->
+                <div class="marquee-item"><i class="ph ph-paw-print"></i> PawCare</div>
+                <div class="marquee-item"><i class="ph ph-cat"></i> FelineTrust</div>
+                <div class="marquee-item"><i class="ph ph-dog"></i> CanineShield</div>
+                <div class="marquee-item"><i class="ph ph-first-aid-kit"></i> VetAlliance</div>
+                <div class="marquee-item"><i class="ph ph-stethoscope"></i> PetMedics</div>
+                <div class="marquee-item"><i class="ph ph-leaf"></i> EcoVet</div>
+                <div class="marquee-item"><i class="ph ph-cookie"></i> Barks&Co</div>
+            </div>
+        </div>
+
+        <!-- BENTO PHOTO GRID -->
+        <section class="section fade-up" style="background-color: var(--bg-surface-alt);">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Happy Pets, Peaceful Minds</h2>
+                    <p>See how Pawsure helps keep pets healthy and owners stress-free.</p>
+                </div>
+
+                <div class="bento-grid"
+                    style="display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 320px 220px; gap: 16px;">
+
+                    <!-- Tall left image — spans both rows -->
+                    <div style="grid-row: 1 / 3; border-radius: var(--radius); overflow: hidden; position: relative;">
+                        <img src="assets/images/bento-dog-vet.jpg" alt="Dog being cared for at a vet clinic"
+                            style="width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease;"
+                            onmouseover="this.style.transform='scale(1.03)'"
+                            onmouseout="this.style.transform='scale(1)'"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div
+                            style="display:none; width:100%; height:100%; background:var(--bg-surface); align-items:center; justify-content:center;">
+                            <i class="ph-fill ph-dog"
+                                style="font-size:64px; color:var(--color-primary); opacity:0.2;"></i>
+                        </div>
+                        <!-- Label overlay -->
+                        <div
+                            style="position: absolute; bottom: 20px; left: 20px; background: rgba(255,255,255,0.92); backdrop-filter: blur(8px); padding: 10px 18px; border-radius: 99px; display: flex; align-items: center; gap: 8px;">
+                            <i class="ph-fill ph-heart" style="color: var(--color-accent); font-size: 16px;"></i>
+                            <span
+                                style="font-weight: var(--weight-label); font-size: var(--size-label); color: var(--text-main);">Trusted
+                                vet care</span>
+                        </div>
+                    </div>
+
+                    <!-- Top right image -->
+                    <div style="border-radius: var(--radius); overflow: hidden; position: relative;">
+                        <img src="assets/images/bento-cat-resting.jpg" alt="Cat resting comfortably at home"
+                            style="width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease;"
+                            onmouseover="this.style.transform='scale(1.03)'"
+                            onmouseout="this.style.transform='scale(1)'"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div
+                            style="display:none; width:100%; height:100%; background:var(--bg-surface); align-items:center; justify-content:center;">
+                            <i class="ph-fill ph-cat"
+                                style="font-size:64px; color:var(--color-primary); opacity:0.2;"></i>
+                        </div>
+                        <div
+                            style="position: absolute; bottom: 20px; left: 20px; background: rgba(255,255,255,0.92); backdrop-filter: blur(8px); padding: 10px 18px; border-radius: 99px; display: flex; align-items: center; gap: 8px;">
+                            <i class="ph-fill ph-shield-check"
+                                style="color: var(--color-primary); font-size: 16px;"></i>
+                            <span
+                                style="font-weight: var(--weight-label); font-size: var(--size-label); color: var(--text-main);">Always
+                                covered</span>
+                        </div>
+                    </div>
+
+                    <!-- Bottom right image -->
+                    <div
+                        style="border-radius: var(--radius); overflow: hidden; position: relative; background-color: var(--color-primary);">
+                        <img src="assets/images/bento-owner-pet.jpg" alt="Happy pet owner hugging their dog"
+                            style="width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.85; transition: transform 0.5s ease;"
+                            onmouseover="this.style.transform='scale(1.03)'"
+                            onmouseout="this.style.transform='scale(1)'"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div
+                            style="display:none; width:100%; height:100%; background:var(--color-primary); align-items:center; justify-content:center;">
+                            <i class="ph-fill ph-paw-print" style="font-size:64px; color:#fff; opacity:0.3;"></i>
+                        </div>
+                        <div
+                            style="position: absolute; bottom: 20px; left: 20px; background: rgba(255,255,255,0.92); backdrop-filter: blur(8px); padding: 10px 18px; border-radius: 99px; display: flex; align-items: center; gap: 8px;">
+                            <i class="ph-fill ph-smiley" style="color: var(--status-amber); font-size: 16px;"></i>
+                            <span
+                                style="font-weight: var(--weight-label); font-size: var(--size-label); color: var(--text-main);">150k+
+                                happy families</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- DIFFERENT LAYOUT: Testimonials First -->
+        <section class="section fade-up" style="background-color: var(--color-secondary);">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Loved by Pet Parents</h2>
+                    <p>Don't just take our word for it.</p>
+                </div>
+
+                <div class="stagger-container is-visible"
+                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px;">
+
+                    <!-- Card 1 -->
+                    <div class="card stagger-item" style="background-color: var(--bg-body); border: none;">
+                        <div style="display: flex; gap: 4px; color: var(--status-amber); margin-bottom: 16px;">
+                            <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                            <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i
+                                class="ph-fill ph-star"></i>
+                        </div>
+                        <p style="font-style: italic; margin-bottom: 24px;">"When Bella needed emergency surgery, I
+                            didn't have to hesitate or worry about the cost. Pawsure approved my claim in 24 hours. A
+                            lifesaver!"</p>
+                        <div style="display: flex; align-items: center; gap: 16px; margin-top: auto;">
+                            <img src="assets/images/avatar-sarahs.jpg" alt="Sarah M."
+                                style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover; flex-shrink: 0;"
+                                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div
+                                style="display: none; width: 48px; height: 48px; border-radius: 50%; background-color: var(--color-secondary); color: var(--color-primary); font-weight: 700; font-size: 1rem; align-items: center; justify-content: center; flex-shrink: 0; border: 2px solid var(--border-color);">
+                                SM</div>
+                            <div style="text-align: left;">
+                                <div style="font-weight: bold;">Sarah M.</div>
+                                <div style="font-size: var(--size-caption); color: var(--text-muted);">Bella's Mom</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="card stagger-item" style="background-color: var(--bg-body); border: none;">
+                        <div style="display: flex; gap: 4px; color: var(--status-amber); margin-bottom: 16px;">
+                            <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                            <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i
+                                class="ph-fill ph-star"></i>
+                        </div>
+                        <p style="font-style: italic; margin-bottom: 24px;">"The dashboard is so easy to use. I just
+                            snap a photo of the vet bill, and the money is in my account a few days later. Very
+                            transparent."</p>
+                        <div style="display: flex; align-items: center; gap: 16px; margin-top: auto;">
+                            <img src="assets/images/avatar-davids.jpg" alt="David K."
+                                style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover; flex-shrink: 0;"
+                                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div
+                                style="display: none; width: 48px; height: 48px; border-radius: 50%; background-color: var(--color-secondary); color: var(--color-primary); font-weight: 700; font-size: 1rem; align-items: center; justify-content: center; flex-shrink: 0; border: 2px solid var(--border-color);">
+                                DK</div>
+                            <div style="text-align: left;">
+                                <div style="font-weight: bold;">David K.</div>
+                                <div style="font-size: var(--size-caption); color: var(--text-muted);">Oliver's Dad
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Then Coverage Plans -->
+        <section class="section fade-up">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Simple, Transparent Plans</h2>
+                    <p>Choose the right level of protection for your furry friend's unique needs.</p>
+                </div>
+
+                <div class="plans-grid stagger-container is-visible">
+                    <!-- Basic Plan -->
+                    <div class="card stagger-item">
+                        <h3>Basic Coverage</h3>
+                        <p style="color: var(--text-muted); margin-bottom: 24px;">Essential protection for unexpected
+                            accidents and emergencies.</p>
+                        <ul style="list-style: none; padding: 0; margin: 0 0 24px 0; text-align: left; width: 100%;">
+                            <li
+                                style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px; font-size: 0.95rem;">
+                                <i class="ph-fill ph-check-circle" style="color: var(--color-primary);"></i> Emergency
+                                Vet Visits
+                            </li>
+                            <li
+                                style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px; font-size: 0.95rem;">
+                                <i class="ph-fill ph-check-circle" style="color: var(--color-primary);"></i> Accident &
+                                Injury treatment
+                            </li>
+                            <li
+                                style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px; font-size: 0.95rem;">
+                                <i class="ph-fill ph-check-circle" style="color: var(--color-primary);"></i> X-rays &
+                                Diagnostic Scans
+                            </li>
+                            <li
+                                style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px; font-size: 0.95rem;">
+                                <i class="ph-fill ph-check-circle" style="color: var(--color-primary);"></i> 80%
+                                Reimbursement rate
+                            </li>
+                        </ul>
+                        <div style="margin-top: auto; width: 100%;">
+                            <a href="services.html" class="btn btn-outline" style="width: 100%;">View Details</a>
+                        </div>
+                    </div>
+                    <!-- Plus Plan -->
+                    <div class="card stagger-item"
+                        style="border-color: var(--color-primary); position: relative; overflow: hidden;">
+                        <div
+                            style="position: absolute; top: 16px; right: -32px; background: var(--color-accent); color: #fff; padding: 4px 40px; transform: rotate(45deg); font-size: 12px; font-weight: bold;">
+                            POPULAR</div>
+                        <h3>Plus Coverage</h3>
+                        <p style="color: var(--text-muted); margin-bottom: 24px;">Comprehensive coverage including
+                            illnesses, tests, and prescriptions.</p>
+                        <ul style="list-style: none; padding: 0; margin: 0 0 24px 0; text-align: left; width: 100%;">
+                            <li
+                                style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px; font-size: 0.95rem; font-weight: bold; color: var(--color-primary);">
+                                <i class="ph-fill ph-plus-circle" style="color: var(--color-primary);"></i> Everything
+                                in Basic
+                            </li>
+                            <li
+                                style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px; font-size: 0.95rem;">
+                                <i class="ph-fill ph-check-circle" style="color: var(--color-primary);"></i> Chronic
+                                Illness Treatment
+                            </li>
+
+                            <li
+                                style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px; font-size: 0.95rem;">
+                                <i class="ph-fill ph-check-circle" style="color: var(--color-primary);"></i> Specialist
+                                Referral Care
+                            </li>
+                            <li
+                                style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px; font-size: 0.95rem;">
+                                <i class="ph-fill ph-check-circle" style="color: var(--color-primary);"></i> 90%
+                                Reimbursement rate
+                            </li>
+                        </ul>
+                        <div style="margin-top: auto; width: 100%;">
+                            <a href="services.html" class="btn btn-primary" style="width: 100%;">View Details</a>
+                        </div>
+                    </div>
+                    <!-- Premium Plan -->
+                    <div class="card stagger-item">
+                        <h3>Premium Coverage</h3>
+                        <p style="color: var(--text-muted); margin-bottom: 24px;">The ultimate peace of mind with
+                            wellness care and preventative routine.</p>
+                        <ul style="list-style: none; padding: 0; margin: 0 0 24px 0; text-align: left; width: 100%;">
+                            <li
+                                style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px; font-size: 0.95rem; font-weight: bold; color: var(--color-primary);">
+                                <i class="ph-fill ph-plus-circle" style="color: var(--color-primary);"></i> Everything
+                                in Plus
+                            </li>
+                            <li
+                                style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px; font-size: 0.95rem;">
+                                <i class="ph-fill ph-check-circle" style="color: var(--color-primary);"></i> Wellness &
+                                Routine Exams
+                            </li>
+                            <li
+                                style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px; font-size: 0.95rem;">
+                                <i class="ph-fill ph-check-circle" style="color: var(--color-primary);"></i> Dental
+                                Cleaning & Vaccines
+                            </li>
+                            <li
+                                style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px; font-size: 0.95rem;">
+                                <i class="ph-fill ph-check-circle" style="color: var(--color-primary);"></i> Spay/Neuter
+                                Procedures
+                            </li>
+                            <li
+                                style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px; font-size: 0.95rem;">
+                                <i class="ph-fill ph-check-circle" style="color: var(--color-primary);"></i> 95%
+                                Reimbursement rate
+                            </li>
+                        </ul>
+                        <div style="margin-top: auto; width: 100%;">
+                            <a href="services.html" class="btn btn-outline" style="width: 100%;">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- BRAND PROMISE SPLIT -->
+        <section class="section fade-up">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Our Commitment to You</h2>
+                    <p>Discover the core values and service standards that set Pawsure apart.</p>
+                </div>
+                <div class="brand-promise-grid"
+                    style="display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;">
+
+                    <!-- Left: Image -->
+                    <div
+                        style="border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); aspect-ratio: 4/5; position: relative;">
+                        <img src="assets/images/brand-promise.jpg"
+                            alt="Pet owner relaxed at home with their cat, knowing they're covered"
+                            style="width: 100%; height: 100%; object-fit: cover; display: block;"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div
+                            style="display:none; width:100%; height:100%; background:var(--bg-surface-alt); align-items:center; justify-content:center;">
+                            <i class="ph-fill ph-paw-print"
+                                style="font-size:80px; color:var(--color-primary); opacity:0.2;"></i>
+                        </div>
+                        <!-- Floating stat badge -->
+                        <div
+                            style="position: absolute; top: 24px; right: -20px; background: var(--bg-body); border-radius: var(--radius); padding: 16px 20px; box-shadow: var(--shadow-hover); text-align: center; min-width: 120px; border: 1px solid var(--border-color);">
+                            <div
+                                style="font-family: var(--font-heading); font-size: 2rem; color: var(--color-primary); line-height: 1;">
+                                48h</div>
+                            <div style="font-size: var(--size-caption); color: var(--text-muted); margin-top: 4px;">avg.
+                                claim time</div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Text -->
+                    <div
+                        style="display: flex; flex-direction: column; gap: 32px; align-items: center; text-align: center;">
+                        <div style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+                            <div
+                                style="display: inline-flex; align-items: center; gap: 8px; background-color: var(--color-secondary); color: var(--color-primary); padding: 6px 16px; border-radius: 99px; font-size: var(--size-caption); font-weight: var(--weight-label); margin-bottom: 20px;">
+                                <i class="ph-fill ph-shield-check"></i> Why Pawsure
+                            </div>
+                            <h3 style="margin-bottom: 16px;">Insurance that works as hard as you love them.</h3>
+                            <p style="color: var(--text-muted); font-size: var(--size-lead);">We built Pawsure for pet
+                                parents who don't want to choose between the best care and a manageable bill.</p>
+                        </div>
+
+                        <div
+                            style="display: flex; flex-direction: column; gap: 24px; align-items: center; width: 100%;">
+
+                            <div
+                                style="display: flex; gap: 16px; align-items: center; flex-direction: column; text-align: center; max-width: 400px;">
+                                <div
+                                    style="width: 48px; height: 48px; background-color: rgba(45,122,79,0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                    <i class="ph ph-clock-countdown"
+                                        style="font-size: 24px; color: var(--color-primary);"></i>
+                                </div>
+                                <div>
+                                    <div
+                                        style="font-weight: var(--weight-label); margin-bottom: 4px; color: var(--text-main);">
+                                        Claims processed in 48 hours</div>
+                                    <div style="color: var(--text-muted); font-size: var(--size-label);">Snap a photo of
+                                        your bill. We handle the rest and deposit straight to your bank.</div>
+                                </div>
+                            </div>
+
+                            <div
+                                style="display: flex; gap: 16px; align-items: center; flex-direction: column; text-align: center; max-width: 400px;">
+                                <div
+                                    style="width: 48px; height: 48px; background-color: rgba(45,122,79,0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                    <i class="ph ph-x-circle" style="font-size: 24px; color: var(--color-primary);"></i>
+                                </div>
+                                <div>
+                                    <div
+                                        style="font-weight: var(--weight-label); margin-bottom: 4px; color: var(--text-main);">
+                                        Cancel anytime, no penalties</div>
+                                    <div style="color: var(--text-muted); font-size: var(--size-label);">No lock-in
+                                        contracts. Your coverage runs month to month with zero cancellation fees.</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <a href="services.html" class="btn btn-primary" style="align-self: center;">See our
+                            plans</a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <!-- CTA SECTION -->
+        <section class="section fade-up"
+            style="position: relative; text-align: center; overflow: hidden; padding: 120px 0;">
+
+            <!-- Background Image -->
+            <img src="assets/images/cta-bg.jpg" alt="" aria-hidden="true"
+                style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; z-index: 0;"
+                onerror="this.style.display='none';">
+
+            <!-- Dark overlay -->
+            <div style="position: absolute; inset: 0; background-color: rgba(15, 40, 25, 0.68); z-index: 1;"></div>
+
+            <!-- Content -->
+            <div class="container" style="max-width: 800px; position: relative; z-index: 2;">
+                <i class="ph-fill ph-paw-print"
+                    style="font-size: 48px; color: rgba(255,255,255,0.4); margin-bottom: 20px; display: block;"></i>
+                <h2 style="margin-bottom: 16px; color: #ffffff;">Have questions? We're here to help.</h2>
+                <p style="color: rgba(255,255,255,0.75); font-size: var(--size-lead); margin-bottom: 40px;">Our team of
+                    pet-loving support specialists is available 7 days a week.</p>
+                <a href="contact.html" class="btn-cta-contact">Contact Support</a>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- FOOTER (same as index) -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="nav-brand" style="margin-bottom: 24px; display: inline-flex;">
+                        <i class="ph-fill ph-paw-print"></i>
+                        Pawsure
+                    </a>
+                    <p style="color: var(--text-muted); font-size: var(--size-label);">We believe every pet deserves the
+                        best care possible, without financial stress holding you back.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>About Pawsure</h4>
+                    <div class="footer-links">
+                        <a href="about.html" class="footer-link">Our Story</a>
+                        <a href="about.html" class="footer-link">Careers</a>
+                        <a href="blog.html" class="footer-link">Blog</a>
+                        <a href="contact.html" class="footer-link">Contact Us</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Coverage</h4>
+                    <div class="footer-links">
+                        <a href="services.html" class="footer-link">Basic Plan</a>
+                        <a href="services.html" class="footer-link">Plus Plan</a>
+                        <a href="services.html" class="footer-link">Premium Plan</a>
+                        <a href="claims-info.html" class="footer-link">How Claims Work</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <div class="footer-links">
+                        <a href="login.html" class="footer-link">Login</a>
+                        <a href="register.html" class="footer-link">Register</a>
+                        <a href="dashboard.html" class="footer-link">Dashboard</a>
+                        <a href="#" class="footer-link">Privacy Policy</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Newsletter</h4>
+                    <p style="color: var(--text-muted); font-size: var(--size-caption); margin-bottom: 16px;">Subscribe
+                        for pet health tips and updates.</p>
+                    <form class="form-group" style="display: flex; gap: 8px;">
+                        <input type="email" placeholder="Your email address" class="form-control" required
+                            style="flex: 1;">
+                        <button type="submit" class="btn btn-primary" style="padding: 14px;"><i
+                                class="ph ph-paper-plane-right"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy;
+                <script>document.write(new Date().getFullYear())</script> Pawsure Pet Insurance. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>

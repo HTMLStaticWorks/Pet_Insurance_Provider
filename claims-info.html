@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Claims Work | Pawsure Pet Insurance</title>
+    <meta name="description"
+        content="Learn how easy it is to submit a pet insurance claim with Pawsure. Get reimbursed fast.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..800&display=swap"
+        rel="stylesheet">
+
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/rtl.css">
+    <style>
+        .form-control:focus {
+            border-color: var(--color-primary) !important;
+            box-shadow: 0 0 0 3px rgba(45, 122, 79, 0.15) !important;
+        }
+
+        select.form-control {
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml;utf8,<svg fill='%232D7A4F' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+        }
+
+        .form-grid-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .form-grid-row {
+                grid-template-columns: 1fr !important;
+                gap: 16px !important;
+            }
+
+            .claims-form-card {
+                padding: 24px !important;
+            }
+        }
+
+        .claims-form-card {
+            align-items: stretch !important;
+            text-align: left !important;
+        }
+
+        .claims-form-card form {
+            width: 100%;
+        }
+
+        .step-row {
+            display: grid;
+            grid-template-columns: 64px 1fr 1fr;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .step-connector {
+            width: 2px;
+            height: 32px;
+            background: var(--border-color);
+            margin-left: 31px;
+            margin-top: -48px;
+            margin-bottom: -48px;
+        }
+
+        @media (max-width: 600px) {
+            .step-row {
+                grid-template-columns: 1fr;
+                gap: 16px;
+                text-align: center;
+            }
+            .step-row > div:first-child {
+                align-self: center !important;
+                margin: 0 auto !important;
+            }
+            .step-row h3 {
+                text-align: center;
+            }
+            .step-row p {
+                text-align: center;
+            }
+            .step-row > div:last-child {
+                order: 3;
+                width: 100%;
+                max-width: 320px;
+                margin: 12px auto 0;
+            }
+            .step-connector {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="nav-brand">
+                <i class="ph-fill ph-paw-print"></i>
+                Pawsure
+            </a>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="home2.html" class="nav-link">Home 2</a>
+                <a href="services.html" class="nav-link">Coverage Plans</a>
+                <a href="claims-info.html" class="nav-link active">Claims</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                <a href="dashboard.html" class="nav-link">Dashboard</a>
+            </nav>
+            <div class="nav-actions">
+                <button class="icon-btn theme-toggle" aria-label="Toggle Dark Mode">
+                    <div class="theme-icon">
+                        <i class="ph ph-sun icon-sun"></i>
+                        <i class="ph ph-moon icon-moon"></i>
+                    </div>
+                </button>
+                <button class="icon-btn rtl-toggle" aria-label="Toggle RTL">
+                    <i class="ph ph-arrows-left-right"></i>
+                </button>
+                <a href="login.html" class="btn btn-primary">Login</a>
+            </div>
+            <button class="hamburger" aria-label="Toggle Menu">
+                <i class="ph ph-list"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- DRAWER & OVERLAY -->
+    <div class="drawer-overlay"></div>
+    <aside class="nav-drawer">
+        <!-- ... drawer links ... -->
+        <div class="drawer-links">
+            <a href="index.html" class="drawer-link">Home</a>
+            <a href="home2.html" class="drawer-link">Home 2</a>
+            <a href="services.html" class="drawer-link">Coverage Plans</a>
+            <a href="claims-info.html" class="drawer-link active">Claims</a>
+            <a href="about.html" class="drawer-link">About</a>
+            <a href="blog.html" class="drawer-link">Blog</a>
+            <a href="contact.html" class="drawer-link">Contact</a>
+            <a href="dashboard.html" class="drawer-link">Dashboard</a>
+            <a href="login.html" class="btn btn-primary" style="margin-top: 8px; width: 100%;">Login</a>
+        </div>
+        <div class="drawer-actions">
+            <button class="icon-btn theme-toggle" aria-label="Toggle Dark Mode">
+                <div class="theme-icon">
+                    <i class="ph ph-sun icon-sun"></i>
+                    <i class="ph ph-moon icon-moon"></i>
+                </div>
+            </button>
+            <button class="icon-btn rtl-toggle" aria-label="Toggle RTL">
+                <i class="ph ph-arrows-left-right"></i>
+            </button>
+        </div>
+    </aside>
+
+    <main>
+        <!-- Page Header -->
+        <section class="section"
+            style="padding-top: 160px; background-color: var(--bg-surface-alt); text-align: center;">
+            <div class="container">
+                <h1 class="fade-up">Claims Made Simple</h1>
+                <p class="fade-up"
+                    style="max-width: 600px; margin: 0 auto; color: var(--text-muted); font-size: var(--size-lead); animation-delay: 0.1s;">
+                    Focus on your pet's recovery, not on paperwork. We've designed our claims process to be lightning
+                    fast and stress-free.</p>
+            </div>
+        </section>
+
+        <!-- Step-by-Step Explainer -->
+        <section class="section fade-up">
+            <div class="container">
+                <div style="max-width: 860px; margin: 0 auto; display: flex; flex-direction: column; gap: 64px;">
+
+                    <!-- Step 1 -->
+                    <div class="step-row">
+                        <!-- Number -->
+                        <div
+                            style="flex-shrink: 0; width: 64px; height: 64px; background-color: var(--color-primary); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold; align-self: flex-start; margin-top: 8px;">
+                            1</div>
+                        <!-- Text -->
+                        <div>
+                            <h3 style="margin-bottom: 12px;">Pay at the Vet</h3>
+                            <p style="color: var(--text-muted);">When your pet needs care, visit any licensed
+                                veterinarian, specialist, or emergency clinic. You pay the vet directly at the time of
+                                service, just like a normal visit. Don't forget to ask for a detailed, itemized invoice!
+                            </p>
+                        </div>
+                        <!-- Image -->
+                        <div
+                            style="border-radius: var(--radius); overflow: hidden; aspect-ratio: 4/3; box-shadow: var(--shadow);">
+                            <img src="assets/images/claims-step1-pay-vet.jpg"
+                                alt="Pet owner paying at a veterinary reception desk"
+                                style="width: 100%; height: 100%; object-fit: cover; display: block;"
+                                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div
+                                style="display: none; width: 100%; height: 100%; background: var(--bg-surface-alt); align-items: center; justify-content: center;">
+                                <i class="ph ph-credit-card"
+                                    style="font-size: 48px; color: var(--color-primary); opacity: 0.3;"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Connector line -->
+                    <div class="step-connector"></div>
+
+                    <!-- Step 2 -->
+                    <div class="step-row">
+                        <!-- Number -->
+                        <div
+                            style="flex-shrink: 0; width: 64px; height: 64px; background-color: var(--color-primary); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold; align-self: flex-start; margin-top: 8px;">
+                            2</div>
+                        <!-- Text -->
+                        <div>
+                            <h3 style="margin-bottom: 12px;">Snap & Upload</h3>
+                            <p style="color: var(--text-muted);">Open your Pawsure Dashboard on your phone or computer.
+                                Click "Submit a Claim", select your pet, and upload a clear photo or PDF of your
+                                itemized vet invoice. No messy claim forms required.</p>
+                        </div>
+                        <!-- Image -->
+                        <div
+                            style="border-radius: var(--radius); overflow: hidden; aspect-ratio: 4/3; box-shadow: var(--shadow);">
+                            <img src="assets/images/claims-step2-snap-upload.jpg"
+                                alt="Person photographing a vet invoice with their smartphone camera"
+                                style="width: 100%; height: 100%; object-fit: cover; display: block;"
+                                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div
+                                style="display: none; width: 100%; height: 100%; background: var(--bg-surface-alt); align-items: center; justify-content: center;">
+                                <i class="ph ph-camera"
+                                    style="font-size: 48px; color: var(--color-primary); opacity: 0.3;"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Connector line -->
+                    <div class="step-connector"></div>
+
+                    <!-- Step 3 -->
+                    <div class="step-row">
+                        <!-- Number -->
+                        <div
+                            style="flex-shrink: 0; width: 64px; height: 64px; background-color: var(--color-primary); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold; align-self: flex-start; margin-top: 8px;">
+                            3</div>
+                        <!-- Text -->
+                        <div>
+                            <h3 style="margin-bottom: 12px;">Get Paid Fast</h3>
+                            <p style="color: var(--text-muted);">Our team reviews most claims within 48 hours. Once
+                                approved, we'll reimburse your covered costs via direct deposit straight into your bank
+                                account. You can track your claim's status directly in the dashboard.</p>
+                        </div>
+                        <!-- Image -->
+                        <div
+                            style="border-radius: var(--radius); overflow: hidden; aspect-ratio: 4/3; box-shadow: var(--shadow);">
+                            <img src="assets/images/claims-step3-get-paid.jpg"
+                                alt="Person checking a bank deposit notification on their phone while their dog sits beside them"
+                                style="width: 100%; height: 100%; object-fit: cover; display: block;"
+                                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div
+                                style="display: none; width: 100%; height: 100%; background: var(--bg-surface-alt); align-items: center; justify-content: center;">
+                                <i class="ph ph-bank"
+                                    style="font-size: 48px; color: var(--color-primary); opacity: 0.3;"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <!-- Start a Claim CTA -->
+        <section class="section fade-up" style="background-color: var(--color-secondary); text-align: center;">
+            <div class="container">
+                <i class="ph-fill ph-receipt paw-decorator" style="font-size: 64px; margin-bottom: 24px;"></i>
+                <h2 style="color: #1a1a1a; margin-bottom: 24px;">Ready to submit a claim?</h2>
+                <p style="color: #555; font-size: var(--size-lead); margin-bottom: 40px;">Head over to your policyholder
+                    dashboard to get started.</p>
+                <a href="dashboard.html" class="btn btn-primary" style="padding: 16px 40px; font-size: 1.125rem;">Start
+                    a claim in Dashboard</a>
+            </div>
+        </section>
+
+        <!-- Claims Enquiry Form -->
+        <section class="section fade-up" style="background-color: var(--bg-body);">
+            <div class="container" style="max-width: 650px;">
+                <div class="section-header" style="margin-bottom: 40px; text-align: center;">
+                    <h2>Claim Inquiry Form</h2>
+                    <p>Have questions about a processed claim, pre-approval, or pending payment? Fill out the form below
+                        and our claim specialists will get back to you within 24 hours.</p>
+                </div>
+
+                <div class="card claims-form-card"
+                    style="background-color: var(--bg-surface); padding: 40px; border: 1px solid var(--border-color); box-shadow: var(--shadow); border-radius: var(--radius);">
+                    <form style="display: flex; flex-direction: column; gap: 24px;">
+
+                        <div class="form-grid-row">
+                            <div class="form-group" style="display: flex; flex-direction: column; gap: 8px;">
+                                <label for="enquiry-name"
+                                    style="font-weight: var(--weight-label); color: var(--text-main); font-size: var(--size-label); text-align: left;">Your
+                                    Name</label>
+                                <input type="text" id="enquiry-name" placeholder="John Doe" class="form-control"
+                                    required style="width: 100%;">
+                            </div>
+                            <div class="form-group" style="display: flex; flex-direction: column; gap: 8px;">
+                                <label for="enquiry-email"
+                                    style="font-weight: var(--weight-label); color: var(--text-main); font-size: var(--size-label); text-align: left;">Email
+                                    Address</label>
+                                <input type="email" id="enquiry-email" placeholder="john@example.com"
+                                    class="form-control" required style="width: 100%;">
+                            </div>
+                        </div>
+
+                        <div class="form-grid-row">
+                            <div class="form-group" style="display: flex; flex-direction: column; gap: 8px;">
+                                <label for="enquiry-claim-id"
+                                    style="font-weight: var(--weight-label); color: var(--text-main); font-size: var(--size-label); text-align: left;">Claim
+                                    ID (Optional)</label>
+                                <input type="text" id="enquiry-claim-id" placeholder="e.g. #CLM-12345"
+                                    class="form-control" style="width: 100%;">
+                            </div>
+                            <div class="form-group" style="display: flex; flex-direction: column; gap: 8px;">
+                                <label for="enquiry-type"
+                                    style="font-weight: var(--weight-label); color: var(--text-main); font-size: var(--size-label); text-align: left;">Inquiry
+                                    Type</label>
+                                <select id="enquiry-type" class="form-control" required
+                                    style="width: 100%; height: 50px; background-color: var(--bg-body); color: var(--text-main); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 10px 16px;">
+                                    <option value="status">Check Status of Claim</option>
+                                    <option value="dispute">Dispute a Claim Decision</option>
+                                    <option value="pre-approval">Pre-Approval Request</option>
+                                    <option value="general">General Claim Question</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="display: flex; flex-direction: column; gap: 8px;">
+                            <label for="enquiry-message"
+                                style="font-weight: var(--weight-label); color: var(--text-main); font-size: var(--size-label); text-align: left;">Describe
+                                Your Inquiry</label>
+                            <textarea id="enquiry-message" rows="5"
+                                placeholder="Provide as much detail as possible about your claim inquiry..."
+                                class="form-control" required
+                                style="width: 100%; min-height: 120px; font-family: inherit; padding: 16px; border: 1px solid var(--border-color); border-radius: var(--radius-sm); resize: vertical;"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary"
+                            style="padding: 16px; width: 100%; border-radius: var(--radius-sm); font-weight: bold; cursor: pointer; transition: all 0.2s;">Submit
+                            Inquiry</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER (same as index) -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="nav-brand" style="margin-bottom: 24px; display: inline-flex;">
+                        <i class="ph-fill ph-paw-print"></i>
+                        Pawsure
+                    </a>
+                    <p style="color: var(--text-muted); font-size: var(--size-label);">We believe every pet deserves the
+                        best care possible, without financial stress holding you back.</p>
+                </div>
+                <!-- ... other footer cols ... -->
+                <div class="footer-col">
+                    <h4>About Pawsure</h4>
+                    <div class="footer-links">
+                        <a href="about.html" class="footer-link">Our Story</a>
+                        <a href="about.html" class="footer-link">Careers</a>
+                        <a href="blog.html" class="footer-link">Blog</a>
+                        <a href="contact.html" class="footer-link">Contact Us</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Coverage</h4>
+                    <div class="footer-links">
+                        <a href="services.html" class="footer-link">Basic Plan</a>
+                        <a href="services.html" class="footer-link">Plus Plan</a>
+                        <a href="services.html" class="footer-link">Premium Plan</a>
+                        <a href="claims-info.html" class="footer-link">How Claims Work</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <div class="footer-links">
+                        <a href="login.html" class="footer-link">Login</a>
+                        <a href="register.html" class="footer-link">Register</a>
+                        <a href="dashboard.html" class="footer-link">Dashboard</a>
+                        <a href="#" class="footer-link">Privacy Policy</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Newsletter</h4>
+                    <p style="color: var(--text-muted); font-size: var(--size-caption); margin-bottom: 16px;">Subscribe
+                        for pet health tips and updates.</p>
+                    <form class="form-group" style="display: flex; gap: 8px;">
+                        <input type="email" placeholder="Your email address" class="form-control" required
+                            style="flex: 1;">
+                        <button type="submit" class="btn btn-primary" style="padding: 14px;"><i
+                                class="ph ph-paper-plane-right"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy;
+                <script>document.write(new Date().getFullYear())</script> Pawsure Pet Insurance. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>

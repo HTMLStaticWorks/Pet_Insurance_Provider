@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found | Pawsure</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..800&display=swap"
+        rel="stylesheet">
+
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/rtl.css">
+
+</head>
+
+<body
+    style="display: flex; align-items: center; justify-content: center; min-height: 100vh; text-align: center; overflow: hidden;">
+
+    <div class="container fade-up" style="max-width: 600px;">
+        <div style="position: relative; display: inline-block; margin-bottom: 32px;">
+            <i class="ph-fill ph-paw-print" style="font-size: 120px; color: var(--color-primary);"></i>
+            <div
+                style="position: absolute; top: -10px; right: -20px; background-color: var(--color-accent); color: #fff; font-weight: bold; padding: 4px 12px; border-radius: 20px; transform: rotate(15deg);">
+                404</div>
+        </div>
+
+        <h1 style="margin-bottom: 16px;">Oops! Looks like you're barking up the wrong tree.</h1>
+        <p style="color: var(--text-muted); font-size: var(--size-lead); margin-bottom: 40px;">The page you are looking
+            for has gone missing or never existed.</p>
+
+        <a href="index.html" class="btn btn-primary" style="padding: 16px 40px;">Return Home</a>
+    </div>
+
+    <!-- Theme/RTL toggles somewhere hidden or absolute for demo purposes if needed, but not strictly required on a 404 centered page -->
+    <div style="position: absolute; top: 24px; right: 24px; display: flex; gap: 16px;">
+        <button class="icon-btn theme-toggle" aria-label="Toggle Dark Mode">
+            <div class="theme-icon">
+                <i class="ph ph-sun icon-sun"></i>
+                <i class="ph ph-moon icon-moon"></i>
+            </div>
+        </button>
+        <button class="icon-btn rtl-toggle" aria-label="Toggle RTL">
+            <i class="ph ph-arrows-left-right"></i>
+        </button>
+    </div>
+
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>

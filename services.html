@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coverage Plans | Pawsure Pet Insurance</title>
+    <meta name="description" content="Compare Pawsure's Basic, Plus, and Premium pet insurance coverage plans. Find the perfect fit for your furry family member.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/rtl.css">
+
+    <style>
+        /* Table Styles */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 40px;
+            background-color: var(--bg-surface);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        .comparison-table th, .comparison-table td {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .comparison-table th:first-child, .comparison-table td:first-child {
+            text-align: left;
+            font-weight: var(--weight-label);
+        }
+        .comparison-table th {
+            background-color: var(--bg-surface-alt);
+            font-family: var(--font-heading);
+            font-size: var(--size-lead);
+            color: var(--text-main);
+        }
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        .check-icon {
+            color: var(--status-green);
+            font-size: 24px;
+        }
+        .x-icon {
+            color: var(--status-gray);
+            font-size: 24px;
+        }
+
+        /* Accordion Styles */
+        .accordion {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .accordion-item {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+        .accordion-header {
+            width: 100%;
+            text-align: left;
+            padding: 24px;
+            background: none;
+            border: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: var(--size-lead);
+            font-family: var(--font-heading);
+            color: var(--text-main);
+            cursor: pointer;
+        }
+        .accordion-icon {
+            transition: transform 0.3s ease;
+        }
+        .accordion-header.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 24px;
+        }
+        .accordion-content p {
+            margin: 0 0 24px 0;
+            color: var(--text-muted);
+        }
+
+        /* Coverage plans grid styles */
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        /* Tablet View (768px) */
+        @media (max-width: 1023px) and (min-width: 481px) {
+            .plans-grid {
+                display: flex !important;
+                flex-wrap: wrap !important;
+                justify-content: center !important;
+                gap: 32px !important;
+            }
+            .plans-grid > .stagger-item {
+                width: calc(50% - 16px) !important;
+                min-width: 280px !important;
+            }
+            .plans-grid > .stagger-item:nth-child(3) {
+                width: calc(50% - 16px) !important;
+            }
+        }
+
+        /* Mobile View (480px and below) */
+        @media (max-width: 480px) {
+            .plans-grid {
+                grid-template-columns: 1fr !important;
+                gap: 24px !important;
+            }
+        }
+
+        /* Visible Table Scrollbar Styles */
+        @media (max-width: 767px) {
+            .table-scroll-wrapper {
+                overflow-x: auto !important;
+                display: block;
+                width: 100%;
+                -webkit-overflow-scrolling: touch;
+                padding-bottom: 12px;
+            }
+
+            /* Force scrollbar to be visible */
+            .table-scroll-wrapper::-webkit-scrollbar {
+                height: 8px;
+                display: block !important;
+            }
+
+            .table-scroll-wrapper::-webkit-scrollbar-track {
+                background: rgba(0, 0, 0, 0.05);
+                border-radius: 4px;
+            }
+
+            .table-scroll-wrapper::-webkit-scrollbar-thumb {
+                background: var(--color-primary);
+                border-radius: 4px;
+            }
+
+            /* Make table wider to guarantee horizontal scroll */
+            .comparison-table {
+                min-width: 600px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="nav-brand">
+                <i class="ph-fill ph-paw-print"></i>
+                Pawsure
+            </a>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="home2.html" class="nav-link">Home 2</a>
+                <a href="services.html" class="nav-link active">Coverage Plans</a>
+                <a href="claims-info.html" class="nav-link">Claims</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                <a href="dashboard.html" class="nav-link">Dashboard</a>
+            </nav>
+            <div class="nav-actions">
+                <button class="icon-btn theme-toggle" aria-label="Toggle Dark Mode">
+                    <div class="theme-icon">
+                        <i class="ph ph-sun icon-sun"></i>
+                        <i class="ph ph-moon icon-moon"></i>
+                    </div>
+                </button>
+                <button class="icon-btn rtl-toggle" aria-label="Toggle RTL">
+                    <i class="ph ph-arrows-left-right"></i>
+                </button>
+                <a href="login.html" class="btn btn-primary">Login</a>
+            </div>
+            <button class="hamburger" aria-label="Toggle Menu">
+                <i class="ph ph-list"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- DRAWER & OVERLAY -->
+    <div class="drawer-overlay"></div>
+    <aside class="nav-drawer">
+        <div class="drawer-links">
+            <a href="index.html" class="drawer-link">Home</a>
+            <a href="home2.html" class="drawer-link">Home 2</a>
+            <a href="services.html" class="drawer-link active">Coverage Plans</a>
+            <a href="claims-info.html" class="drawer-link">Claims</a>
+            <a href="about.html" class="drawer-link">About</a>
+            <a href="blog.html" class="drawer-link">Blog</a>
+            <a href="contact.html" class="drawer-link">Contact</a>
+            <a href="dashboard.html" class="drawer-link">Dashboard</a>
+            <a href="login.html" class="btn btn-primary" style="margin-top: 8px; width: 100%;">Login</a>
+        </div>
+        <div class="drawer-actions">
+            <button class="icon-btn theme-toggle" aria-label="Toggle Dark Mode">
+                <div class="theme-icon">
+                    <i class="ph ph-sun icon-sun"></i>
+                    <i class="ph ph-moon icon-moon"></i>
+                </div>
+            </button>
+            <button class="icon-btn rtl-toggle" aria-label="Toggle RTL">
+                <i class="ph ph-arrows-left-right"></i>
+            </button>
+        </div>
+    </aside>
+
+    <main>
+        <!-- Page Header -->
+        <section class="section" style="padding-top: 160px; background-color: var(--color-secondary); text-align: center;">
+            <div class="container">
+                <i class="ph-fill ph-shield-check paw-decorator" style="font-size: 64px; margin-bottom: 24px; color: var(--color-primary); opacity: 1;"></i>
+                <h1 class="fade-up" style="color: #1a1a1a;">Coverage Plans</h1>
+                <p class="fade-up" style="max-width: 600px; margin: 0 auto; color: #555; font-size: var(--size-lead); animation-delay: 0.1s;">Flexible, transparent plans designed for peace of mind. Choose what's best for your pet and your budget.</p>
+            </div>
+        </section>
+
+        <!-- PLAN CARDS -->
+        <section class="section fade-up">
+            <div class="container">
+                <div class="plans-grid stagger-container is-visible">
+                    <!-- Basic Plan -->
+                    <div class="card stagger-item">
+                        <i class="ph ph-shield-check" style="font-size: 48px; color: var(--color-primary); margin-bottom: 24px;"></i>
+                        <h3>Basic</h3>
+                        <div style="font-size: 2.5rem; font-family: var(--font-heading); margin: 16px 0;">$24<span style="font-size: 1rem; color: var(--text-muted); font-family: var(--font-body);">/mo</span></div>
+                        <p style="color: var(--text-muted); margin-bottom: 24px;">Essential protection for unexpected accidents and emergencies.</p>
+                        <ul style="text-align: left; margin-bottom: 32px; width: 100%; display: flex; flex-direction: column; gap: 12px;">
+                            <li><i class="ph ph-check" style="color: var(--status-green); margin-right: 8px;"></i> Accidents & Injuries</li>
+                            <li><i class="ph ph-check" style="color: var(--status-green); margin-right: 8px;"></i> Emergency Care</li>
+                            <li><i class="ph ph-check" style="color: var(--status-green); margin-right: 8px;"></i> Surgery & Hospitalization</li>
+                        </ul>
+                        <div style="margin-top: auto; width: 100%;">
+                            <a href="register.html" class="btn btn-outline" style="width: 100%;">Select Basic</a>
+                        </div>
+                    </div>
+                    <!-- Plus Plan -->
+                    <div class="card stagger-item" style="border-color: var(--color-primary); position: relative; overflow: hidden; box-shadow: var(--shadow-hover);">
+                        <div style="position: absolute; top: 16px; right: -32px; background: var(--color-accent); color: #fff; padding: 4px 40px; transform: rotate(45deg); font-size: 12px; font-weight: bold;">POPULAR</div>
+                        <i class="ph ph-shield-plus" style="font-size: 48px; color: var(--color-primary); margin-bottom: 24px;"></i>
+                        <h3>Plus</h3>
+                        <div style="font-size: 2.5rem; font-family: var(--font-heading); margin: 16px 0; color: var(--color-primary);">$45<span style="font-size: 1rem; color: var(--text-muted); font-family: var(--font-body);">/mo</span></div>
+                        <p style="color: var(--text-muted); margin-bottom: 24px;">Comprehensive coverage including illnesses, tests, and prescriptions.</p>
+                        <ul style="text-align: left; margin-bottom: 32px; width: 100%; display: flex; flex-direction: column; gap: 12px;">
+                            <li><i class="ph ph-check" style="color: var(--status-green); margin-right: 8px;"></i> Everything in Basic</li>
+                            <li><i class="ph ph-check" style="color: var(--status-green); margin-right: 8px;"></i> Illnesses & Diseases</li>
+                            <li><i class="ph ph-check" style="color: var(--status-green); margin-right: 8px;"></i> Diagnostics & X-Rays</li>
+                            <li><i class="ph ph-check" style="color: var(--status-green); margin-right: 8px;"></i> Prescription Meds</li>
+                        </ul>
+                        <div style="margin-top: auto; width: 100%;">
+                            <a href="register.html" class="btn btn-primary" style="width: 100%;">Select Plus</a>
+                        </div>
+                    </div>
+                    <!-- Premium Plan -->
+                    <div class="card stagger-item">
+                        <i class="ph ph-shield-star" style="font-size: 48px; color: var(--color-primary); margin-bottom: 24px;"></i>
+                        <h3>Premium</h3>
+                        <div style="font-size: 2.5rem; font-family: var(--font-heading); margin: 16px 0;">$79<span style="font-size: 1rem; color: var(--text-muted); font-family: var(--font-body);">/mo</span></div>
+                        <p style="color: var(--text-muted); margin-bottom: 24px;">The ultimate peace of mind with wellness care and preventative routine.</p>
+                        <ul style="text-align: left; margin-bottom: 32px; width: 100%; display: flex; flex-direction: column; gap: 12px;">
+                            <li><i class="ph ph-check" style="color: var(--status-green); margin-right: 8px;"></i> Everything in Plus</li>
+                            <li><i class="ph ph-check" style="color: var(--status-green); margin-right: 8px;"></i> Routine Checkups</li>
+                            <li><i class="ph ph-check" style="color: var(--status-green); margin-right: 8px;"></i> Dental Cleaning</li>
+                            <li><i class="ph ph-check" style="color: var(--status-green); margin-right: 8px;"></i> Vaccines & Preventatives</li>
+                        </ul>
+                        <div style="margin-top: auto; width: 100%;">
+                            <a href="register.html" class="btn btn-outline" style="width: 100%;">Select Premium</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FEATURE COMPARISON TABLE -->
+        <section class="section fade-up" style="background-color: var(--bg-surface-alt);">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Feature Comparison</h2>
+                    <p>See exactly what's covered in each plan.</p>
+                </div>
+                
+                <div class="table-scroll-wrapper">
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Features</th>
+                                <th>Basic</th>
+                                <th>Plus</th>
+                                <th>Premium</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Accidents & Injuries</td>
+                                <td><i class="ph-fill ph-check-circle check-icon"></i></td>
+                                <td><i class="ph-fill ph-check-circle check-icon"></i></td>
+                                <td><i class="ph-fill ph-check-circle check-icon"></i></td>
+                            </tr>
+                            <tr>
+                                <td>Emergency Clinics</td>
+                                <td><i class="ph-fill ph-check-circle check-icon"></i></td>
+                                <td><i class="ph-fill ph-check-circle check-icon"></i></td>
+                                <td><i class="ph-fill ph-check-circle check-icon"></i></td>
+                            </tr>
+                            <tr>
+                                <td>Illnesses & Diseases</td>
+                                <td><i class="ph ph-x x-icon"></i></td>
+                                <td><i class="ph-fill ph-check-circle check-icon"></i></td>
+                                <td><i class="ph-fill ph-check-circle check-icon"></i></td>
+                            </tr>
+                            <tr>
+                                <td>Diagnostic Tests (X-Rays, Bloodwork)</td>
+                                <td><i class="ph ph-x x-icon"></i></td>
+                                <td><i class="ph-fill ph-check-circle check-icon"></i></td>
+                                <td><i class="ph-fill ph-check-circle check-icon"></i></td>
+                            </tr>
+                            <tr>
+                                <td>Prescription Medications</td>
+                                <td><i class="ph ph-x x-icon"></i></td>
+                                <td><i class="ph-fill ph-check-circle check-icon"></i></td>
+                                <td><i class="ph-fill ph-check-circle check-icon"></i></td>
+                            </tr>
+                            <tr>
+                                <td>Hereditary Conditions</td>
+                                <td><i class="ph ph-x x-icon"></i></td>
+                                <td><i class="ph-fill ph-check-circle check-icon"></i></td>
+                                <td><i class="ph-fill ph-check-circle check-icon"></i></td>
+                            </tr>
+                            <tr>
+                                <td>Routine Wellness Exams</td>
+                                <td><i class="ph ph-x x-icon"></i></td>
+                                <td><i class="ph ph-x x-icon"></i></td>
+                                <td><i class="ph-fill ph-check-circle check-icon"></i></td>
+                            </tr>
+                            <tr>
+                                <td>Dental Cleaning</td>
+                                <td><i class="ph ph-x x-icon"></i></td>
+                                <td><i class="ph ph-x x-icon"></i></td>
+                                <td><i class="ph-fill ph-check-circle check-icon"></i></td>
+                            </tr>
+                            <tr>
+                                <td>Vaccines</td>
+                                <td><i class="ph ph-x x-icon"></i></td>
+                                <td><i class="ph ph-x x-icon"></i></td>
+                                <td><i class="ph-fill ph-check-circle check-icon"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ ACCORDION -->
+        <section class="section fade-up">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Frequently Asked Questions</h2>
+                    <p>Everything you need to know about our plans.</p>
+                </div>
+                
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header">
+                            Can I visit any vet?
+                            <i class="ph ph-caret-down accordion-icon"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <p>Yes! With Pawsure, you are free to visit any licensed veterinarian, specialist, or emergency clinic in the country. There are no out-of-network penalties.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-header">
+                            Are pre-existing conditions covered?
+                            <i class="ph ph-caret-down accordion-icon"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <p>Like most pet insurance providers, we do not cover pre-existing conditions. However, any new conditions or illnesses that develop after your waiting period will be fully covered.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-header">
+                            Is there a waiting period?
+                            <i class="ph ph-caret-down accordion-icon"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <p>Yes, there is a standard 14-day waiting period for illnesses and a 2-day waiting period for accidents before your coverage officially begins.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-header">
+                            How do reimbursements work?
+                            <i class="ph ph-caret-down accordion-icon"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <p>Simply pay your vet bill as usual, then upload a photo of the invoice through your policyholder dashboard. We process most claims within 48 hours and send the money directly to your bank account via direct deposit.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER (same as index) -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="nav-brand" style="margin-bottom: 24px; display: inline-flex;">
+                        <i class="ph-fill ph-paw-print"></i>
+                        Pawsure
+                    </a>
+                    <p style="color: var(--text-muted); font-size: var(--size-label);">We believe every pet deserves the best care possible, without financial stress holding you back.</p>
+                </div>
+                <!-- ... other footer cols ... -->
+                <div class="footer-col">
+                    <h4>About Pawsure</h4>
+                    <div class="footer-links">
+                        <a href="about.html" class="footer-link">Our Story</a>
+                        <a href="about.html" class="footer-link">Careers</a>
+                        <a href="blog.html" class="footer-link">Blog</a>
+                        <a href="contact.html" class="footer-link">Contact Us</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Coverage</h4>
+                    <div class="footer-links">
+                        <a href="services.html" class="footer-link">Basic Plan</a>
+                        <a href="services.html" class="footer-link">Plus Plan</a>
+                        <a href="services.html" class="footer-link">Premium Plan</a>
+                        <a href="claims-info.html" class="footer-link">How Claims Work</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <div class="footer-links">
+                        <a href="login.html" class="footer-link">Login</a>
+                        <a href="register.html" class="footer-link">Register</a>
+                        <a href="dashboard.html" class="footer-link">Dashboard</a>
+                        <a href="#" class="footer-link">Privacy Policy</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Newsletter</h4>
+                    <p style="color: var(--text-muted); font-size: var(--size-caption); margin-bottom: 16px;">Subscribe for pet health tips and updates.</p>
+                    <form class="form-group" style="display: flex; gap: 8px;">
+                        <input type="email" placeholder="Your email address" class="form-control" required style="flex: 1;">
+                        <button type="submit" class="btn btn-primary" style="padding: 14px;"><i class="ph ph-paper-plane-right"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; <script>document.write(new Date().getFullYear())</script> Pawsure Pet Insurance. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+        // Accordion Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const accordions = document.querySelectorAll('.accordion-header');
+            
+            accordions.forEach(acc => {
+                acc.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    const content = this.nextElementSibling;
+                    if (content.style.maxHeight) {
+                        content.style.maxHeight = null;
+                    } else {
+                        content.style.maxHeight = content.scrollHeight + "px";
+                    } 
+                });
+            });
+        });
+    </script>
+</body>
+</html>

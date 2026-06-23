@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Pawsure Pet Insurance</title>
+    <meta name="description"
+        content="Get in touch with the Pawsure team. We're here to answer any questions you have about our pet insurance plans.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..800&display=swap"
+        rel="stylesheet">
+
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/rtl.css">
+
+    <style>
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+        }
+
+        .contact-info {
+            padding: 48px;
+            background-color: var(--color-primary);
+            color: #fff;
+            border-radius: var(--radius);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .contact-info h2 {
+            color: #fff;
+            width: 100%;
+        }
+
+        .contact-info-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 8px;
+            margin-bottom: 32px;
+            width: 100%;
+        }
+
+        .contact-info-item i {
+            font-size: 28px;
+            color: var(--color-secondary);
+            margin-bottom: 4px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 24px;
+            width: 100%;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            transition: all var(--transition-fast);
+        }
+
+        .social-links a:hover {
+            background-color: var(--color-accent);
+            transform: scale(1.1);
+        }
+
+        .map-placeholder {
+            width: 100%;
+            height: 300px;
+            background-color: #e5e5e5;
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #777;
+            margin-top: 32px;
+        }
+
+        @media (max-width: 1023px) {
+            .contact-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .contact-info {
+                padding: 24px;
+                text-align: center;
+            }
+
+            .contact-info-item {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="nav-brand">
+                <i class="ph-fill ph-paw-print"></i>
+                Pawsure
+            </a>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="home2.html" class="nav-link">Home 2</a>
+                <a href="services.html" class="nav-link">Coverage Plans</a>
+                <a href="claims-info.html" class="nav-link">Claims</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="contact.html" class="nav-link active">Contact</a>
+                <a href="dashboard.html" class="nav-link">Dashboard</a>
+            </nav>
+            <div class="nav-actions">
+                <button class="icon-btn theme-toggle" aria-label="Toggle Dark Mode">
+                    <div class="theme-icon">
+                        <i class="ph ph-sun icon-sun"></i>
+                        <i class="ph ph-moon icon-moon"></i>
+                    </div>
+                </button>
+                <button class="icon-btn rtl-toggle" aria-label="Toggle RTL">
+                    <i class="ph ph-arrows-left-right"></i>
+                </button>
+                <a href="login.html" class="btn btn-primary">Login</a>
+            </div>
+            <button class="hamburger" aria-label="Toggle Menu">
+                <i class="ph ph-list"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- DRAWER & OVERLAY -->
+    <div class="drawer-overlay"></div>
+    <aside class="nav-drawer">
+        <!-- ... drawer links ... -->
+        <div class="drawer-links">
+            <a href="index.html" class="drawer-link">Home</a>
+            <a href="home2.html" class="drawer-link">Home 2</a>
+            <a href="services.html" class="drawer-link">Coverage Plans</a>
+            <a href="claims-info.html" class="drawer-link">Claims</a>
+            <a href="about.html" class="drawer-link">About</a>
+            <a href="blog.html" class="drawer-link">Blog</a>
+            <a href="contact.html" class="drawer-link active">Contact</a>
+            <a href="dashboard.html" class="drawer-link">Dashboard</a>
+            <a href="login.html" class="btn btn-primary" style="margin-top: 8px; width: 100%;">Login</a>
+        </div>
+        <div class="drawer-actions">
+            <button class="icon-btn theme-toggle" aria-label="Toggle Dark Mode">
+                <div class="theme-icon">
+                    <i class="ph ph-sun icon-sun"></i>
+                    <i class="ph ph-moon icon-moon"></i>
+                </div>
+            </button>
+            <button class="icon-btn rtl-toggle" aria-label="Toggle RTL">
+                <i class="ph ph-arrows-left-right"></i>
+            </button>
+        </div>
+    </aside>
+
+    <main>
+        <!-- Page Header -->
+        <section class="section"
+            style="padding-top: 160px; background-color: var(--bg-surface-alt); text-align: center;">
+            <div class="container">
+                <h1 class="fade-up">Contact Our Pack</h1>
+                <p class="fade-up"
+                    style="max-width: 600px; margin: 0 auto; color: var(--text-muted); font-size: var(--size-lead); animation-delay: 0.1s;">
+                    We're here to help you and your pet. Reach out to us anytime, and our friendly team will get back to
+                    you shortly.</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="contact-layout">
+
+                    <div class="fade-up">
+                        <h2 style="margin-bottom: 32px;text-align: center;">Send us a Message</h2>
+
+                        <form action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST" class="needs-validation"
+                            novalidate>
+
+                            <div class="form-group">
+                                <label class="form-label">First Name</label>
+                                <input type="text" class="form-control" name="firstName" required>
+                                <div class="error-message">Please enter your first name.</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Last Name</label>
+                                <input type="text" class="form-control" name="lastName" required>
+                                <div class="error-message">Please enter your last name.</div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Phone Number</label>
+                                <input type="tel" class="form-control" name="phone" required>
+                                <div class="error-message">Please enter your phone number.</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email Address</label>
+                                <input type="email" class="form-control" name="email" required
+                                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+                                <div class="error-message">Please enter a valid email address.</div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">How can we help?</label>
+                                <textarea class="form-control" name="message" rows="5" required></textarea>
+                                <div class="error-message">Please enter your message.</div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+                        </form>
+                    </div>
+
+                    <div class="contact-info fade-up" style="animation-delay: 0.2s;">
+                        <h2 style="margin-bottom: 48px;text-align: center;">Contact Information</h2>
+
+                        <div class="contact-info-item">
+                            <i class="ph-fill ph-envelope-simple"></i>
+                            <div>
+                                <div style="font-weight: bold; margin-bottom: 4px;">Email Us</div>
+                                <p style="margin: 0; opacity: 0.9;">hello@pawsure.com</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-info-item">
+                            <i class="ph-fill ph-phone"></i>
+                            <div>
+                                <div style="font-weight: bold; margin-bottom: 4px;">Call Us</div>
+                                <p style="margin: 0; opacity: 0.9;">1-800-PAWSURE</p>
+                                <p style="margin: 0; opacity: 0.7; font-size: var(--size-caption);">Mon-Fri from 8am to
+                                    8pm EST</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-info-item">
+                            <i class="ph-fill ph-map-pin"></i>
+                            <div>
+                                <div style="font-weight: bold; margin-bottom: 4px;">Our Office</div>
+                                <p style="margin: 0; opacity: 0.9;">123 Wagging Tail Blvd<br>Austin, TX 78701</p>
+                            </div>
+                        </div>
+
+                        <div class="social-links">
+                            <a href="#"><i class="ph-fill ph-facebook-logo"></i></a>
+                            <a href="#"><i class="ph-fill ph-instagram-logo"></i></a>
+                            <a href="#"><i class="ph-fill ph-x-logo"></i></a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Map Section (now outside the contact info) -->
+                <div class="fade-up" style="animation-delay: 0.3s; margin-top: 64px;">
+                    <div class="map-placeholder"
+                        style="height: 450px; margin-top: 0; overflow: hidden; border-radius: var(--radius); box-shadow: var(--shadow);">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3440.7517618991475!2d-97.74306078487612!3d30.26715298180237!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8644b508d689c16b%3A0xc19db8e3f940b54e!2sAustin%2C%20TX%2078701!5e0!3m2!1sen!2sus!4v1655648873099!5m2!1sen!2sus"
+                            width="100%" height="100%" style="border:0; display: block;" allowfullscreen=""
+                            loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="nav-brand" style="margin-bottom: 24px; display: inline-flex;">
+                        <i class="ph-fill ph-paw-print"></i>
+                        Pawsure
+                    </a>
+                    <p style="color: var(--text-muted); font-size: var(--size-label);">We believe every pet deserves the
+                        best care possible, without financial stress holding you back.</p>
+                </div>
+                <!-- ... other footer cols ... -->
+                <div class="footer-col">
+                    <h4>About Pawsure</h4>
+                    <div class="footer-links">
+                        <a href="about.html" class="footer-link">Our Story</a>
+                        <a href="about.html" class="footer-link">Careers</a>
+                        <a href="blog.html" class="footer-link">Blog</a>
+                        <a href="contact.html" class="footer-link">Contact Us</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Coverage</h4>
+                    <div class="footer-links">
+                        <a href="services.html" class="footer-link">Basic Plan</a>
+                        <a href="services.html" class="footer-link">Plus Plan</a>
+                        <a href="services.html" class="footer-link">Premium Plan</a>
+                        <a href="claims-info.html" class="footer-link">How Claims Work</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <div class="footer-links">
+                        <a href="login.html" class="footer-link">Login</a>
+                        <a href="register.html" class="footer-link">Register</a>
+                        <a href="dashboard.html" class="footer-link">Dashboard</a>
+                        <a href="#" class="footer-link">Privacy Policy</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Newsletter</h4>
+                    <p style="color: var(--text-muted); font-size: var(--size-caption); margin-bottom: 16px;">Subscribe
+                        for pet health tips and updates.</p>
+                    <form class="form-group" style="display: flex; gap: 8px;">
+                        <input type="email" placeholder="Your email address" class="form-control" required
+                            style="flex: 1;">
+                        <button type="submit" class="btn btn-primary" style="padding: 14px;"><i
+                                class="ph ph-paper-plane-right"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy;
+                <script>document.write(new Date().getFullYear())</script> Pawsure Pet Insurance. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/dashboard.js"></script> <!-- Included for form validation & toast -->
+</body>
+
+</html>

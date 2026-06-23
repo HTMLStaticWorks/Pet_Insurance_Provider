@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | Pawsure Pet Insurance</title>
+    <meta name="description"
+        content="Read the latest pet health tips, insurance advice, and breed guides on the Pawsure blog.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..800&display=swap"
+        rel="stylesheet">
+
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/rtl.css">
+
+
+    <style>
+        .blog-card {
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            overflow: hidden;
+            background-color: var(--bg-surface);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .blog-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .blog-content {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .blog-meta {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            align-items: center;
+            font-size: var(--size-caption);
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .blog-tag {
+            background-color: var(--bg-surface-alt);
+            padding: 4px 8px;
+            border-radius: 4px;
+            color: var(--color-primary);
+            font-weight: var(--weight-label);
+        }
+
+        .blog-title {
+            font-family: var(--font-heading);
+            font-size: var(--size-h4);
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .blog-excerpt {
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .blog-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .blog-footer {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            align-items: center;
+            margin-top: auto;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .read-more-btn {
+            color: var(--color-primary);
+            font-weight: bold;
+            font-size: var(--size-caption);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: transform 0.2s ease;
+        }
+
+        .blog-card:hover .read-more-btn {
+            transform: translateX(4px);
+        }
+
+        .blog-author img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .category-nav {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 48px;
+        }
+
+        .category-btn {
+            padding: 8px 16px;
+            border-radius: 30px;
+            border: 1px solid var(--border-color);
+            background: none;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .category-btn.active,
+        .category-btn:hover {
+            background-color: var(--color-primary);
+            color: #fff;
+            border-color: var(--color-primary);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="nav-brand">
+                <i class="ph-fill ph-paw-print"></i>
+                Pawsure
+            </a>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="home2.html" class="nav-link">Home 2</a>
+                <a href="services.html" class="nav-link">Coverage Plans</a>
+                <a href="claims-info.html" class="nav-link">Claims</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="blog.html" class="nav-link active">Blog</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                <a href="dashboard.html" class="nav-link">Dashboard</a>
+            </nav>
+            <div class="nav-actions">
+                <button class="icon-btn theme-toggle" aria-label="Toggle Dark Mode">
+                    <div class="theme-icon">
+                        <i class="ph ph-sun icon-sun"></i>
+                        <i class="ph ph-moon icon-moon"></i>
+                    </div>
+                </button>
+                <button class="icon-btn rtl-toggle" aria-label="Toggle RTL">
+                    <i class="ph ph-arrows-left-right"></i>
+                </button>
+                <a href="login.html" class="btn btn-primary">Login</a>
+            </div>
+            <button class="hamburger" aria-label="Toggle Menu">
+                <i class="ph ph-list"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- DRAWER & OVERLAY -->
+    <div class="drawer-overlay"></div>
+    <aside class="nav-drawer">
+        <!-- ... drawer links ... -->
+        <div class="drawer-links">
+            <a href="index.html" class="drawer-link">Home</a>
+            <a href="home2.html" class="drawer-link">Home 2</a>
+            <a href="services.html" class="drawer-link">Coverage Plans</a>
+            <a href="claims-info.html" class="drawer-link">Claims</a>
+            <a href="about.html" class="drawer-link">About</a>
+            <a href="blog.html" class="drawer-link active">Blog</a>
+            <a href="contact.html" class="drawer-link">Contact</a>
+            <a href="dashboard.html" class="drawer-link">Dashboard</a>
+            <a href="login.html" class="btn btn-primary" style="margin-top: 8px; width: 100%;">Login</a>
+        </div>
+        <div class="drawer-actions">
+            <button class="icon-btn theme-toggle" aria-label="Toggle Dark Mode">
+                <div class="theme-icon">
+                    <i class="ph ph-sun icon-sun"></i>
+                    <i class="ph ph-moon icon-moon"></i>
+                </div>
+            </button>
+            <button class="icon-btn rtl-toggle" aria-label="Toggle RTL">
+                <i class="ph ph-arrows-left-right"></i>
+            </button>
+        </div>
+    </aside>
+
+    <main>
+        <!-- Page Header -->
+        <section class="section"
+            style="padding-top: 160px; background-color: var(--bg-surface-alt); text-align: center;">
+            <div class="container">
+                <h1 class="fade-up">The Pawsure Blog</h1>
+                <p class="fade-up"
+                    style="max-width: 600px; margin: 0 auto; color: var(--text-muted); font-size: var(--size-lead); animation-delay: 0.1s;">
+                    Tips, tricks, and tales to help you be the best pet parent possible.</p>
+            </div>
+        </section>
+
+        <!-- Blog Grid -->
+        <section class="section">
+            <div class="container">
+
+                <div class="category-nav fade-up">
+                    <button class="category-btn active">All</button>
+                    <button class="category-btn">Pet Health</button>
+                    <button class="category-btn">Insurance Tips</button>
+                    <button class="category-btn">Breed Guides</button>
+                    <button class="category-btn">Vet Advice</button>
+                </div>
+
+                <div class="stagger-container is-visible"
+                    style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 32px;">
+
+                    <!-- Article 1 -->
+                    <a href="blog-single.html" class="blog-card stagger-item">
+                        <img src="assets/images/blog-dog-vet-signs.jpg" alt="Dog at vet being examined" class="blog-img"
+                            onerror="this.style.background='var(--bg-surface-alt)'; this.removeAttribute('src');">
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span class="blog-tag">Pet Health</span>
+                                <span>Oct 12, 2023</span>
+                            </div>
+                            <h3 class="blog-title">5 Warning Signs Your Dog Needs to See a Vet Immediately</h3>
+                            <p class="blog-excerpt">As a pet parent, it can be hard to tell when your dog is just tired
+                                or when they need emergency medical attention. Here are the top 5 signs...</p>
+                            <div class="blog-footer">
+                                <div class="blog-author">
+                                    <img src="assets/images/team-marcus.jpg" alt="Dr. Marcus Chen"
+                                        onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
+                                    <span
+                                        style="display:none; width:32px; height:32px; border-radius:50%; background:var(--color-secondary); color:var(--color-primary); font-size:0.75rem; font-weight:700; align-items:center; justify-content:center; flex-shrink:0;">MC</span>
+                                    <span style="font-size: var(--size-caption); color: var(--text-muted);">By Dr.
+                                        Marcus</span>
+                                </div>
+                                <span class="read-more-btn">Read More <i class="ph ph-arrow-right"></i></span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Article 2 -->
+                    <a href="blog-single.html" class="blog-card stagger-item">
+                        <img src="assets/images/blog-insurance-tips.jpg" alt="Cat resting at home comfortably"
+                            class="blog-img"
+                            onerror="this.style.background='var(--bg-surface-alt)'; this.removeAttribute('src');">
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span class="blog-tag">Insurance Tips</span>
+                                <span>Oct 05, 2023</span>
+                            </div>
+                            <h3 class="blog-title">How to Maximize Your Pet Insurance Benefits</h3>
+                            <p class="blog-excerpt">You've got pet insurance, but are you using it to its full
+                                potential? Learn how to get the most out of your Pawsure policy, including wellness
+                                add-ons.</p>
+                            <div class="blog-footer">
+                                <div class="blog-author">
+                                    <img src="assets/images/team-sarah.jpg" alt="Sarah Jenkins"
+                                        onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
+                                    <span
+                                        style="display:none; width:32px; height:32px; border-radius:50%; background:var(--color-secondary); color:var(--color-primary); font-size:0.75rem; font-weight:700; align-items:center; justify-content:center; flex-shrink:0;">SJ</span>
+                                    <span style="font-size: var(--size-caption); color: var(--text-muted);">By Sarah
+                                        Jenkins</span>
+                                </div>
+                                <span class="read-more-btn">Read More <i class="ph ph-arrow-right"></i></span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Article 3 -->
+                    <a href="blog-single.html" class="blog-card stagger-item">
+                        <img src="assets/images/blog-golden-retriever-health.jpg"
+                            alt="Golden Retriever outdoors looking healthy and happy" class="blog-img"
+                            onerror="this.style.background='var(--bg-surface-alt)'; this.removeAttribute('src');">
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span class="blog-tag">Breed Guides</span>
+                                <span>Sep 28, 2023</span>
+                            </div>
+                            <h3 class="blog-title">Golden Retrievers: Common Health Issues to Watch For</h3>
+                            <p class="blog-excerpt">They are loving, loyal, and full of energy. But Golden Retrievers
+                                are also prone to certain genetic health issues. Here is what you need to know.</p>
+                            <div class="blog-footer">
+                                <div class="blog-author">
+                                    <img src="assets/images/team-elena.jpg" alt="Elena Rodriguez"
+                                        onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
+                                    <span
+                                        style="display:none; width:32px; height:32px; border-radius:50%; background:var(--color-secondary); color:var(--color-primary); font-size:0.75rem; font-weight:700; align-items:center; justify-content:center; flex-shrink:0;">ER</span>
+                                    <span style="font-size: var(--size-caption); color: var(--text-muted);">By Dr.
+                                        Elena</span>
+                                </div>
+                                <span class="read-more-btn">Read More <i class="ph ph-arrow-right"></i></span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Article 4 -->
+                    <a href="blog-single.html" class="blog-card stagger-item">
+                        <img src="assets/images/blog-senior-cat-diet.jpg" alt="Senior cat eating from a bowl"
+                            class="blog-img"
+                            onerror="this.style.background='var(--bg-surface-alt)'; this.removeAttribute('src');">
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span class="blog-tag">Vet Advice</span>
+                                <span>Sep 15, 2023</span>
+                            </div>
+                            <h3 class="blog-title">The Best Diet for a Senior Cat</h3>
+                            <p class="blog-excerpt">As your feline friend gets older, their nutritional needs change.
+                                Dr. Chen breaks down the best foods to keep your senior cat healthy and happy.</p>
+                            <div class="blog-footer">
+                                <div class="blog-author">
+                                    <img src="assets/images/team-marcus.jpg" alt="Dr. Marcus Chen"
+                                        onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
+                                    <span
+                                        style="display:none; width:32px; height:32px; border-radius:50%; background:var(--color-secondary); color:var(--color-primary); font-size:0.75rem; font-weight:700; align-items:center; justify-content:center; flex-shrink:0;">MC</span>
+                                    <span style="font-size: var(--size-caption); color: var(--text-muted);">By Dr.
+                                        Marcus</span>
+                                </div>
+                                <span class="read-more-btn">Read More <i class="ph ph-arrow-right"></i></span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Article 5 -->
+                    <a href="blog-single.html" class="blog-card stagger-item">
+                        <img src="assets/images/blog-pet-anxiety.jpg" alt="Dog pacing anxiously indoors"
+                            class="blog-img"
+                            onerror="this.style.background='var(--bg-surface-alt)'; this.removeAttribute('src');">
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span class="blog-tag">Pet Health</span>
+                                <span>Sep 08, 2023</span>
+                            </div>
+                            <h3 class="blog-title">Understanding Pet Anxiety: Causes & Solutions</h3>
+                            <p class="blog-excerpt">Is your pet pacing, whining, or showing destructive behavior? Learn
+                                the signs of separation anxiety and how to support them through it.</p>
+                            <div class="blog-footer">
+                                <div class="blog-author">
+                                    <img src="assets/images/team-sarah.jpg" alt="Sarah Jenkins"
+                                        onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
+                                    <span
+                                        style="display:none; width:32px; height:32px; border-radius:50%; background:var(--color-secondary); color:var(--color-primary); font-size:0.75rem; font-weight:700; align-items:center; justify-content:center; flex-shrink:0;">SJ</span>
+                                    <span style="font-size: var(--size-caption); color: var(--text-muted);">By Sarah
+                                        Jenkins</span>
+                                </div>
+                                <span class="read-more-btn">Read More <i class="ph ph-arrow-right"></i></span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Article 6 -->
+                    <a href="blog-single.html" class="blog-card stagger-item">
+                        <img src="assets/images/blog-puppy-insurance.jpg" alt="Young puppy playing outdoors in a garden"
+                            class="blog-img"
+                            onerror="this.style.background='var(--bg-surface-alt)'; this.removeAttribute('src');">
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span class="blog-tag">Insurance Tips</span>
+                                <span>Aug 30, 2023</span>
+                            </div>
+                            <h3 class="blog-title">When Should You Enroll Your Puppy in Insurance?</h3>
+                            <p class="blog-excerpt">The best time to cover your pet is before any pre-existing
+                                conditions develop. Find out why starting insurance early is the smartest decision.</p>
+                            <div class="blog-footer">
+                                <div class="blog-author">
+                                    <img src="assets/images/team-elena.jpg" alt="Elena Rodriguez"
+                                        onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
+                                    <span
+                                        style="display:none; width:32px; height:32px; border-radius:50%; background:var(--color-secondary); color:var(--color-primary); font-size:0.75rem; font-weight:700; align-items:center; justify-content:center; flex-shrink:0;">ER</span>
+                                    <span style="font-size: var(--size-caption); color: var(--text-muted);">By Dr. Elena
+                                    </span>
+                                </div>
+                                <span class="read-more-btn">Read More <i class="ph ph-arrow-right"></i></span>
+                            </div>
+                        </div>
+                    </a>
+
+                </div>
+
+                <div style="text-align: center; margin-top: 48px;">
+                    <button class="btn btn-outline fade-up">Load More Articles</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="nav-brand" style="margin-bottom: 24px; display: inline-flex;">
+                        <i class="ph-fill ph-paw-print"></i>
+                        Pawsure
+                    </a>
+                    <p style="color: var(--text-muted); font-size: var(--size-label);">We believe every pet deserves the
+                        best care possible, without financial stress holding you back.</p>
+                </div>
+                <!-- ... other footer cols ... -->
+                <div class="footer-col">
+                    <h4>About Pawsure</h4>
+                    <div class="footer-links">
+                        <a href="about.html" class="footer-link">Our Story</a>
+                        <a href="about.html" class="footer-link">Careers</a>
+                        <a href="blog.html" class="footer-link">Blog</a>
+                        <a href="contact.html" class="footer-link">Contact Us</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Coverage</h4>
+                    <div class="footer-links">
+                        <a href="services.html" class="footer-link">Basic Plan</a>
+                        <a href="services.html" class="footer-link">Plus Plan</a>
+                        <a href="services.html" class="footer-link">Premium Plan</a>
+                        <a href="claims-info.html" class="footer-link">How Claims Work</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <div class="footer-links">
+                        <a href="login.html" class="footer-link">Login</a>
+                        <a href="register.html" class="footer-link">Register</a>
+                        <a href="dashboard.html" class="footer-link">Dashboard</a>
+                        <a href="#" class="footer-link">Privacy Policy</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Newsletter</h4>
+                    <p style="color: var(--text-muted); font-size: var(--size-caption); margin-bottom: 16px;">Subscribe
+                        for pet health tips and updates.</p>
+                    <form class="form-group" style="display: flex; gap: 8px;">
+                        <input type="email" placeholder="Your email address" class="form-control" required
+                            style="flex: 1;">
+                        <button type="submit" class="btn btn-primary" style="padding: 14px;"><i
+                                class="ph ph-paper-plane-right"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy;
+                <script>document.write(new Date().getFullYear())</script> Pawsure Pet Insurance. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>

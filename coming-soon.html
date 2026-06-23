@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon | Pawsure</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/rtl.css">
+    
+    <style>
+        .countdown {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            margin-top: 48px;
+            margin-bottom: 48px;
+        }
+        .countdown-item {
+            display: flex;
+            flex-direction: column;
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 24px;
+            min-width: 100px;
+            box-shadow: var(--shadow);
+        }
+        .countdown-number {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            color: var(--color-primary);
+            line-height: 1;
+        }
+        .countdown-label {
+            font-size: var(--size-caption);
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body style="display: flex; align-items: center; justify-content: center; min-height: 100vh; text-align: center; overflow: hidden;">
+    
+    <div style="position: absolute; top: 24px; right: 24px; display: flex; gap: 16px;">
+        <button class="icon-btn theme-toggle" aria-label="Toggle Dark Mode">
+            <div class="theme-icon">
+                <i class="ph ph-sun icon-sun"></i>
+                <i class="ph ph-moon icon-moon"></i>
+            </div>
+        </button>
+        <button class="icon-btn rtl-toggle" aria-label="Toggle RTL">
+            <i class="ph ph-arrows-left-right"></i>
+        </button>
+    </div>
+
+    <div class="container fade-up" style="max-width: 700px;">
+        <i class="ph-fill ph-paw-print" style="font-size: 64px; color: var(--color-primary); margin-bottom: 24px;"></i>
+        
+        <h1 style="margin-bottom: 16px;">Something pawsome is coming.</h1>
+        <p style="color: var(--text-muted); font-size: var(--size-lead);">We're working hard to bring you a better way to protect your pets. Get ready for transparent, reliable pet insurance.</p>
+        
+        <div class="countdown" id="countdown">
+            <div class="countdown-item">
+                <span class="countdown-number" id="days">00</span>
+                <span class="countdown-label">Days</span>
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-number" id="hours">00</span>
+                <span class="countdown-label">Hours</span>
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-number" id="minutes">00</span>
+                <span class="countdown-label">Minutes</span>
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-number" id="seconds">00</span>
+                <span class="countdown-label">Seconds</span>
+            </div>
+        </div>
+
+        <form class="form-group needs-validation" style="display: flex; gap: 8px; max-width: 400px; margin: 0 auto;" novalidate>
+            <input type="email" placeholder="Enter your email to be notified" class="form-control" required style="flex: 1;">
+            <button type="submit" class="btn btn-primary" style="padding: 14px 24px;">Notify Me</button>
+        </form>
+        
+        <div style="margin-top: 32px;">
+            <a href="index.html" style="color: var(--text-muted); text-decoration: underline;">Back to Home</a>
+        </div>
+    </div>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/dashboard.js"></script>
+    <script>
+        // Simple Countdown Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set launch date 14 days from now
+            const launchDate = new Date();
+            launchDate.setDate(launchDate.getDate() + 14);
+            const targetTime = launchDate.getTime();
+
+            const timer = setInterval(() => {
+                const now = new Date().getTime();
+                const distance = targetTime - now;
+
+                if (distance < 0) {
+                    clearInterval(timer);
+                    return;
+                }
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById('days').innerText = String(days).padStart(2, '0');
+                document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+                document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+                document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

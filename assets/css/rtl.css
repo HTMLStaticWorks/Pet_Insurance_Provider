@@ -1,0 +1,50 @@
+/* ==========================================================================
+   PAWSURE - RTL OVERRIDES
+   ========================================================================== */
+
+/* Apply to body.rtl or html[dir="rtl"] */
+html[dir="rtl"], body.rtl {
+  direction: rtl;
+  text-align: right;
+}
+
+html[dir="rtl"] .section-header, 
+body.rtl .section-header,
+html[dir="rtl"] .section-header p,
+body.rtl .section-header p {
+  text-align: center; /* keep centered */
+}
+
+html[dir="rtl"] .form-group,
+body.rtl .form-group {
+  text-align: right;
+}
+
+html[dir="rtl"] .nav-drawer,
+body.rtl .nav-drawer {
+  right: auto;
+  left: 0;
+  transform: translateX(-100%);
+  box-shadow: 10px 0 30px rgba(0,0,0,0.1);
+}
+
+html[dir="rtl"] .nav-drawer.open,
+body.rtl .nav-drawer.open {
+  transform: translateX(0);
+}
+
+/* Icons mirroring */
+html[dir="rtl"] .ph-arrow-right,
+body.rtl .ph-arrow-right,
+html[dir="rtl"] .ph-caret-right,
+body.rtl .ph-caret-right {
+  transform: scaleX(-1);
+}
+
+/* Margin and Padding logical adjustments if absolute left/right were used */
+/* e.g., if there's margin-right: 16px, override to margin-left: 16px; margin-right: 0; */
+html[dir="rtl"] .btn svg,
+body.rtl .btn svg {
+  margin-left: 0;
+  margin-right: 8px; /* if standard spacing was left */
+}

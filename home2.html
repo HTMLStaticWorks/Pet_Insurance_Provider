@@ -430,7 +430,11 @@
     <!-- DRAWER & OVERLAY -->
     <div class="drawer-overlay"></div>
     <aside class="nav-drawer">
-        <!-- ... drawer links matching above ... -->
+        <div class="drawer-header">
+            <button class="drawer-close" aria-label="Close Menu">
+                <i class="ph ph-x"></i>
+            </button>
+        </div>
         <div class="drawer-links">
             <a href="index.html" class="drawer-link">Home</a>
             <a href="home2.html" class="drawer-link active">Home 2</a>
@@ -468,11 +472,7 @@
 
                     <h1 class="hero-title">
                         Coverage that cares for every
-                        <span style="color: var(--color-primary); position: relative; display: inline-block;">
-                            paw.
-                            <span
-                                style="position: absolute; bottom: 8px; left: 0; width: 100%; height: 8px; background-color: var(--color-secondary); z-index: -1; border-radius: 4px;"></span>
-                        </span>
+                        <span style="color: var(--color-primary);">paw.</span>
                     </h1>
 
                     <p class="hero-subtitle">
@@ -551,7 +551,7 @@
                             style="position: absolute; bottom: 20px; left: 20px; background: rgba(255,255,255,0.92); backdrop-filter: blur(8px); padding: 10px 18px; border-radius: 99px; display: flex; align-items: center; gap: 8px;">
                             <i class="ph-fill ph-heart" style="color: var(--color-accent); font-size: 16px;"></i>
                             <span
-                                style="font-weight: var(--weight-label); font-size: var(--size-label); color: var(--text-main);">Trusted
+                                style="font-weight: var(--weight-label); font-size: var(--size-label); color: #1a1a1a;">Trusted
                                 vet care</span>
                         </div>
                     </div>
@@ -573,7 +573,7 @@
                             <i class="ph-fill ph-shield-check"
                                 style="color: var(--color-primary); font-size: 16px;"></i>
                             <span
-                                style="font-weight: var(--weight-label); font-size: var(--size-label); color: var(--text-main);">Always
+                                style="font-weight: var(--weight-label); font-size: var(--size-label); color: #1a1a1a;">Always
                                 covered</span>
                         </div>
                     </div>
@@ -594,7 +594,7 @@
                             style="position: absolute; bottom: 20px; left: 20px; background: rgba(255,255,255,0.92); backdrop-filter: blur(8px); padding: 10px 18px; border-radius: 99px; display: flex; align-items: center; gap: 8px;">
                             <i class="ph-fill ph-smiley" style="color: var(--status-amber); font-size: 16px;"></i>
                             <span
-                                style="font-weight: var(--weight-label); font-size: var(--size-label); color: var(--text-main);">150k+
+                                style="font-weight: var(--weight-label); font-size: var(--size-label); color: #1a1a1a;">150k+
                                 happy families</span>
                         </div>
                     </div>
@@ -607,8 +607,8 @@
         <section class="section fade-up" style="background-color: var(--color-secondary);">
             <div class="container">
                 <div class="section-header">
-                    <h2>Loved by Pet Parents</h2>
-                    <p>Don't just take our word for it.</p>
+                    <h2 style="color: #1a1a1a;">Loved by Pet Parents</h2>
+                    <p style="color: #555;">Don't just take our word for it.</p>
                 </div>
 
                 <div class="stagger-container is-visible"
@@ -631,8 +631,8 @@
                             <div
                                 style="display: none; width: 48px; height: 48px; border-radius: 50%; background-color: var(--color-secondary); color: var(--color-primary); font-weight: 700; font-size: 1rem; align-items: center; justify-content: center; flex-shrink: 0; border: 2px solid var(--border-color);">
                                 SM</div>
-                            <div style="text-align: left;">
-                                <div style="font-weight: bold;">Sarah M.</div>
+                            <div style="text-align: start;">
+                                <div style="font-weight: bold;"><bdi>Sarah M.</bdi></div>
                                 <div style="font-size: var(--size-caption); color: var(--text-muted);">Bella's Mom</div>
                             </div>
                         </div>
@@ -655,8 +655,8 @@
                             <div
                                 style="display: none; width: 48px; height: 48px; border-radius: 50%; background-color: var(--color-secondary); color: var(--color-primary); font-weight: 700; font-size: 1rem; align-items: center; justify-content: center; flex-shrink: 0; border: 2px solid var(--border-color);">
                                 DK</div>
-                            <div style="text-align: left;">
-                                <div style="font-weight: bold;">David K.</div>
+                            <div style="text-align: start;">
+                                <div style="font-weight: bold;"><bdi>David K.</bdi></div>
                                 <div style="font-size: var(--size-caption); color: var(--text-muted);">Oliver's Dad
                                 </div>
                             </div>
@@ -681,24 +681,20 @@
                         <h3>Basic Coverage</h3>
                         <p style="color: var(--text-muted); margin-bottom: 24px;">Essential protection for unexpected
                             accidents and emergencies.</p>
-                        <ul style="list-style: none; padding: 0; margin: 0 0 24px 0; text-align: left; width: 100%;">
-                            <li
-                                style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px; font-size: 0.95rem;">
+                        <ul class="plan-features">
+                            <li>
                                 <i class="ph-fill ph-check-circle" style="color: var(--color-primary);"></i> Emergency
                                 Vet Visits
                             </li>
-                            <li
-                                style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px; font-size: 0.95rem;">
+                            <li>
                                 <i class="ph-fill ph-check-circle" style="color: var(--color-primary);"></i> Accident &
                                 Injury treatment
                             </li>
-                            <li
-                                style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px; font-size: 0.95rem;">
+                            <li>
                                 <i class="ph-fill ph-check-circle" style="color: var(--color-primary);"></i> X-rays &
                                 Diagnostic Scans
                             </li>
-                            <li
-                                style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px; font-size: 0.95rem;">
+                            <li>
                                 <i class="ph-fill ph-check-circle" style="color: var(--color-primary);"></i> 80%
                                 Reimbursement rate
                             </li>
@@ -716,25 +712,21 @@
                         <h3>Plus Coverage</h3>
                         <p style="color: var(--text-muted); margin-bottom: 24px;">Comprehensive coverage including
                             illnesses, tests, and prescriptions.</p>
-                        <ul style="list-style: none; padding: 0; margin: 0 0 24px 0; text-align: left; width: 100%;">
-                            <li
-                                style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px; font-size: 0.95rem; font-weight: bold; color: var(--color-primary);">
+                        <ul class="plan-features">
+                            <li style="font-weight: bold; color: var(--color-primary);">
                                 <i class="ph-fill ph-plus-circle" style="color: var(--color-primary);"></i> Everything
                                 in Basic
                             </li>
-                            <li
-                                style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px; font-size: 0.95rem;">
+                            <li>
                                 <i class="ph-fill ph-check-circle" style="color: var(--color-primary);"></i> Chronic
                                 Illness Treatment
                             </li>
 
-                            <li
-                                style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px; font-size: 0.95rem;">
+                            <li>
                                 <i class="ph-fill ph-check-circle" style="color: var(--color-primary);"></i> Specialist
                                 Referral Care
                             </li>
-                            <li
-                                style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px; font-size: 0.95rem;">
+                            <li>
                                 <i class="ph-fill ph-check-circle" style="color: var(--color-primary);"></i> 90%
                                 Reimbursement rate
                             </li>
@@ -745,32 +737,27 @@
                     </div>
                     <!-- Premium Plan -->
                     <div class="card stagger-item">
-                        <h3>Premium Coverage</h3>
-                        <p style="color: var(--text-muted); margin-bottom: 24px;">The ultimate peace of mind with
-                            wellness care and preventative routine.</p>
-                        <ul style="list-style: none; padding: 0; margin: 0 0 24px 0; text-align: left; width: 100%;">
-                            <li
-                                style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px; font-size: 0.95rem; font-weight: bold; color: var(--color-primary);">
+                        <h3>Ultra Coverage</h3>
+                        <p style="color: var(--text-muted); margin-bottom: 24px;">The ultimate peace of calm mind with
+                            wellness care and truest.</p>
+                        <ul class="plan-features">
+                            <li style="font-weight: bold; color: var(--color-primary);">
                                 <i class="ph-fill ph-plus-circle" style="color: var(--color-primary);"></i> Everything
                                 in Plus
                             </li>
-                            <li
-                                style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px; font-size: 0.95rem;">
+                            <li>
                                 <i class="ph-fill ph-check-circle" style="color: var(--color-primary);"></i> Wellness &
                                 Routine Exams
                             </li>
-                            <li
-                                style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px; font-size: 0.95rem;">
+                            <li>
                                 <i class="ph-fill ph-check-circle" style="color: var(--color-primary);"></i> Dental
                                 Cleaning & Vaccines
                             </li>
-                            <li
-                                style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px; font-size: 0.95rem;">
+                            <li>
                                 <i class="ph-fill ph-check-circle" style="color: var(--color-primary);"></i> Spay/Neuter
                                 Procedures
                             </li>
-                            <li
-                                style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px; font-size: 0.95rem;">
+                            <li>
                                 <i class="ph-fill ph-check-circle" style="color: var(--color-primary);"></i> 95%
                                 Reimbursement rate
                             </li>

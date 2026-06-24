@@ -3,16 +3,18 @@
    ========================================================================== */
 
 /* Apply to body.rtl or html[dir="rtl"] */
-html[dir="rtl"], body.rtl {
+html[dir="rtl"],
+body.rtl {
   direction: rtl;
   text-align: right;
 }
 
-html[dir="rtl"] .section-header, 
+html[dir="rtl"] .section-header,
 body.rtl .section-header,
 html[dir="rtl"] .section-header p,
 body.rtl .section-header p {
-  text-align: center; /* keep centered */
+  text-align: center;
+  /* keep centered */
 }
 
 html[dir="rtl"] .form-group,
@@ -25,7 +27,7 @@ body.rtl .nav-drawer {
   right: auto;
   left: 0;
   transform: translateX(-100%);
-  box-shadow: 10px 0 30px rgba(0,0,0,0.1);
+  box-shadow: 10px 0 30px rgba(0, 0, 0, 0.1);
 }
 
 html[dir="rtl"] .nav-drawer.open,
@@ -46,5 +48,33 @@ body.rtl .ph-caret-right {
 html[dir="rtl"] .btn svg,
 body.rtl .btn svg {
   margin-left: 0;
-  margin-right: 8px; /* if standard spacing was left */
+  margin-right: 8px;
+  /* if standard spacing was left */
+}
+
+/* Date input RTL compliance */
+html[dir="rtl"] input[type="date"] {
+  direction: rtl !important;
+  text-align: right !important;
+  position: relative;
+  padding-left: 40px !important;
+  padding-right: 16px !important;
+}
+
+html[dir="rtl"] input[type="date"]::-webkit-calendar-picker-indicator {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0;
+  cursor: pointer;
+}
+
+html[dir="rtl"] .plan-features {
+  padding: 0 36px 0 0 !important;
+}
+
+html[dir="rtl"] .back-to-top {
+  right: auto;
+  left: 32px;
 }

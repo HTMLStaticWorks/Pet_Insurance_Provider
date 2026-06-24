@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavbar();
   initAnimations();
   initCountUp();
+  initBackToTop();
 });
 
 /* --------------------------------------------------------------------------
@@ -58,6 +59,12 @@ function initRTL() {
 
   rtlToggles.forEach(toggle => {
     toggle.addEventListener('click', () => {
+      // Temporarily disable transitions to prevent the drawer from sliding across the viewport
+      const drawer = document.querySelector('.nav-drawer');
+      if (drawer) {
+        drawer.style.transition = 'none';
+      }
+
       const isRtl = htmlEl.getAttribute('dir') === 'rtl';
       if (isRtl) {
         htmlEl.removeAttribute('dir');
@@ -65,6 +72,14 @@ function initRTL() {
       } else {
         htmlEl.setAttribute('dir', 'rtl');
         localStorage.setItem('pawsure-rtl', 'true');
+      }
+
+      // Force a reflow and restore transition
+      if (drawer) {
+        drawer.offsetHeight; // trigger reflow
+        setTimeout(() => {
+          drawer.style.transition = '';
+        }, 50);
       }
     });
   });
@@ -118,6 +133,12 @@ function initNavbar() {
 
     hamburger.addEventListener('click', toggleDrawer);
     overlay.addEventListener('click', toggleDrawer);
+
+    // Close on close button click
+    const closeBtn = drawer.querySelector('.drawer-close');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', toggleDrawer);
+    }
     
     // Close on link click
     const drawerLinks = drawer.querySelectorAll('.drawer-link');
@@ -201,4 +222,33 @@ function animateValue(obj, start, end, duration) {
     }
   };
   window.requestAnimationFrame(step);
+}
+
+/* --------------------------------------------------------------------------
+   BACK TO TOP BUTTON
+   -------------------------------------------------------------------------- */
+function initBackToTop() {
+  // Create back to top button
+  const btn = document.createElement('button');
+  btn.className = 'back-to-top';
+  btn.setAttribute('aria-label', 'Back to Top');
+  btn.innerHTML = '<i class="ph ph-arrow-up"></i>';
+  document.body.appendChild(btn);
+
+  // Monitor scroll height
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+      btn.classList.add('visible');
+    } else {
+      btn.classList.remove('visible');
+    }
+  });
+
+  // Scroll smoothly back to top
+  btn.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
 }

@@ -22,6 +22,11 @@
             background-color: var(--bg-surface-alt);
         }
 
+        /* Prevent navbar from shrinking on scroll inside dashboard */
+        .navbar, .navbar.scrolled {
+            padding: 20px 0 !important;
+        }
+
         /* Dashboard Layout */
         .dash-layout {
             display: flex;
@@ -160,7 +165,7 @@
             border-radius: var(--radius);
             border: 1px solid var(--border-color);
             box-shadow: var(--shadow);
-            text-align: left;
+            text-align: start;
             /* override default card */
             align-items: flex-start;
             transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
@@ -425,6 +430,21 @@
             position: relative;
         }
 
+        .upload-zone:hover {
+            border-color: var(--color-primary);
+            background-color: rgba(45, 122, 79, 0.05);
+            box-shadow: var(--shadow);
+            transform: translateY(-2px);
+        }
+
+        .upload-zone i {
+            transition: transform var(--transition-fast) !important;
+        }
+
+        .upload-zone:hover i {
+            transform: scale(1.1);
+        }
+
         .upload-zone.is-dragover {
             border-color: var(--color-primary);
             background-color: rgba(45, 122, 79, 0.05);
@@ -653,6 +673,7 @@
                 transform: translateX(100%);
             }
 
+            html[dir="rtl"] .dash-sidebar.open,
             .dash-sidebar.open {
                 transform: translateX(0);
             }
@@ -1111,6 +1132,19 @@
             box-shadow: 0 4px 12px rgba(239, 68, 68, 0.35) !important;
             transform: scale(1.04) !important;
         }
+
+        /* Sidebar Heading RTL compliance */
+        .sidebar-heading {
+            color: var(--text-muted);
+            font-size: var(--size-caption);
+            text-transform: uppercase;
+            margin: 24px 0 8px 0;
+            margin-inline-start: 16px;
+        }
+        
+        .sidebar-heading:first-of-type {
+            margin-top: 16px;
+        }
     </style>
 </head>
 
@@ -1146,22 +1180,19 @@
     <div class="dash-layout">
         <!-- SIDEBAR -->
         <aside class="dash-sidebar">
-            <div
-                style="color: var(--text-muted); font-size: var(--size-caption); text-transform: uppercase; margin: 16px 0 8px 16px;">
+            <div class="sidebar-heading">
                 Menu</div>
             <a class="sidebar-link active" data-target="view-overview"><i class="ph ph-squares-four"></i> Overview</a>
             <a class="sidebar-link" data-target="view-pets"><i class="ph ph-paw-print"></i> My Pets</a>
             <a class="sidebar-link" data-target="view-plans"><i class="ph ph-shield-check"></i> My Plans</a>
 
-            <div
-                style="color: var(--text-muted); font-size: var(--size-caption); text-transform: uppercase; margin: 24px 0 8px 16px;">
+            <div class="sidebar-heading">
                 Claims & Billing</div>
             <a class="sidebar-link" data-target="view-submit-claim"><i class="ph ph-plus-circle"></i> Submit a Claim</a>
             <a class="sidebar-link" data-target="view-claims"><i class="ph ph-file-text"></i> My Claims</a>
             <a class="sidebar-link" data-target="view-reimbursements"><i class="ph ph-money"></i> Reimbursements</a>
 
-            <div
-                style="color: var(--text-muted); font-size: var(--size-caption); text-transform: uppercase; margin: 24px 0 8px 16px;">
+            <div class="sidebar-heading">
                 More</div>
             <a class="sidebar-link" data-target="view-documents"><i class="ph ph-folder"></i> Documents</a>
             <a class="sidebar-link" data-target="view-messages"><i class="ph ph-chat-circle"></i> Messages <span
@@ -1769,6 +1800,8 @@
                     const targetView = document.getElementById(targetId);
                     if (targetView) {
                         targetView.classList.add('active');
+                        // Scroll to top of the page on view switch
+                        window.scrollTo(0, 0);
                         // re-trigger animations if needed, e.g. charts
                         if (targetId === 'view-reimbursements') {
                             const bars = targetView.querySelectorAll('.chart-bar-fill');

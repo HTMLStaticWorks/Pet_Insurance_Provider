@@ -69,11 +69,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 48px;
-            height: 48px;
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
             background-color: rgba(255, 255, 255, 0.1);
             color: #fff;
+            font-size: 24px;
             transition: all var(--transition-fast);
         }
 
@@ -159,7 +160,11 @@
     <!-- DRAWER & OVERLAY -->
     <div class="drawer-overlay"></div>
     <aside class="nav-drawer">
-        <!-- ... drawer links ... -->
+        <div class="drawer-header">
+            <button class="drawer-close" aria-label="Close Menu">
+                <i class="ph ph-x"></i>
+            </button>
+        </div>
         <div class="drawer-links">
             <a href="index.html" class="drawer-link">Home</a>
             <a href="home2.html" class="drawer-link">Home 2</a>

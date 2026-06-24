@@ -278,6 +278,11 @@
     <!-- DRAWER & OVERLAY -->
     <div class="drawer-overlay"></div>
     <aside class="nav-drawer">
+        <div class="drawer-header">
+            <button class="drawer-close" aria-label="Close Menu">
+                <i class="ph ph-x"></i>
+            </button>
+        </div>
         <div class="drawer-links">
             <a href="index.html" class="drawer-link active">Home</a>
             <a href="home2.html" class="drawer-link">Home 2</a>
@@ -349,7 +354,7 @@
                     <p>Three simple steps to protect your pet and your wallet.</p>
                 </div>
 
-                <div class="how-it-works-grid stagger-container is-visible">
+                <div class="how-it-works-grid stagger-container is-visible preserve-order-grid">
 
                     <!-- Step 1 -->
                     <div class="stagger-item" style="text-align: center;">
@@ -421,8 +426,10 @@
         <section class="section fade-up">
             <div class="container">
                 <div class="section-header">
-                    <h2>Meet Our Team</h2>
-                    <p>Dedicated professionals working around the clock to support you and your pets.</p>
+                    <h2 style="text-align: center;">Meet Our Team</h2>
+                    <p style="text-align: center;">Dedicated professionals working around the clock to support you and
+                        your
+                        pets.</p>
                 </div>
                 <div
                     style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 80px; align-items: center;">
@@ -474,7 +481,8 @@
                     <!-- Right: Text -->
                     <div style="display: flex; flex-direction: column; gap: 28px; padding-bottom: 32px;">
 
-                        <div>
+                        <div
+                            style="display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%;">
                             <div
                                 style="display: inline-flex; align-items: center; gap: 8px; background-color: var(--color-secondary); color: var(--color-primary); padding: 6px 16px; border-radius: 99px; font-size: var(--size-caption); font-weight: var(--weight-label); margin-bottom: 20px;">
                                 <i class="ph-fill ph-paw-print"></i> Our Story
@@ -538,7 +546,7 @@
                     <p>Whether you're a dog person, a cat person, or both — we've got you covered.</p>
                 </div>
 
-                <div class="stagger-container is-visible"
+                <div class="stagger-container is-visible preserve-order-grid"
                     style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px;">
 
                     <!-- Dogs Card -->
@@ -561,12 +569,13 @@
                             </div>
                         </div>
                         <div style="padding: 28px; display: flex; flex-direction: column; gap: 16px; flex: 1;">
-                            <h3 style="text-align: left;">Built for dogs of all breeds</h3>
-                            <p style="color: var(--text-muted); text-align: left;">From playful puppies to senior pups,
+                            <h3 style="text-align: center;">Built for dogs of all breeds</h3>
+                            <p style="color: var(--text-muted); text-align: center;">From playful puppies to senior
+                                pups,
                                 our plans cover accidents, illnesses, hereditary conditions, and more — no breed
                                 exclusions.</p>
                             <ul
-                                style="list-style: none; display: flex; flex-direction: column; gap: 10px; text-align: left;">
+                                style="list-style: none; display: flex; flex-direction: column; gap: 10px; align-self: center; width: fit-content;">
                                 <li
                                     style="display: flex; align-items: center; gap: 10px; color: var(--text-muted); font-size: var(--size-label);">
                                     <i class="ph-fill ph-check-circle"
@@ -611,12 +620,12 @@
                             </div>
                         </div>
                         <div style="padding: 28px; display: flex; flex-direction: column; gap: 16px; flex: 1;">
-                            <h3 style="text-align: left;">Plans for cats</h3>
-                            <p style="color: var(--text-muted); text-align: left;">Indoor, outdoor, or somewhere in
+                            <h3 style="text-align: center;">Plans that are best for cats</h3>
+                            <p style="color: var(--text-muted); text-align: center;">Indoor, outdoor, or somewhere in
                                 between — our cat coverage handles the unexpected so you can focus on what matters most.
                             </p>
                             <ul
-                                style="list-style: none; display: flex; flex-direction: column; gap: 10px; text-align: left;">
+                                style="list-style: none; display: flex; flex-direction: column; gap: 10px; align-self: center; width: fit-content;">
                                 <li
                                     style="display: flex; align-items: center; gap: 10px; color: var(--text-muted); font-size: var(--size-label);">
                                     <i class="ph-fill ph-check-circle"
@@ -636,7 +645,7 @@
                                     Specialist & dental care
                                 </li>
                             </ul>
-                            <a href="services.html" class="btn btn-outline" style="margin-top: auto; width: 100%;">Get a
+                            <a href="services.html" class="btn btn-primary" style="margin-top: auto; width: 100%;">Get a
                                 quote for your cat</a>
                         </div>
                     </div>
@@ -672,8 +681,8 @@
                             <div
                                 style="display: none; width: 48px; height: 48px; border-radius: 50%; background-color: var(--color-secondary); color: var(--color-primary); font-weight: 700; font-size: 1rem; align-items: center; justify-content: center; flex-shrink: 0;">
                                 SM</div>
-                            <div style="text-align: left;">
-                                <div style="font-weight: bold;">Sarah M.</div>
+                            <div style="text-align: start;">
+                                <div style="font-weight: bold;"><bdi>Sarah M.</bdi></div>
                                 <div style="font-size: var(--size-caption); color: var(--text-muted);">Bella's Mom
                                     (Retriever)</div>
                             </div>
@@ -697,8 +706,8 @@
                             <div
                                 style="display: none; width: 48px; height: 48px; border-radius: 50%; background-color: var(--color-secondary); color: var(--color-primary); font-weight: 700; font-size: 1rem; align-items: center; justify-content: center; flex-shrink: 0;">
                                 DK</div>
-                            <div style="text-align: left;">
-                                <div style="font-weight: bold;">David K.</div>
+                            <div style="text-align: start;">
+                                <div style="font-weight: bold;"><bdi>David K.</bdi></div>
                                 <div style="font-size: var(--size-caption); color: var(--text-muted);">Oliver's Dad
                                     (Tabby Cat)</div>
                             </div>

@@ -628,6 +628,32 @@ html[dir="rtl"] .footer-links {
   font-size: var(--size-caption);
 }
 
+.footer-socials {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.footer-social-link {
+  color: var(--text-muted) !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--border-color);
+  background-color: transparent;
+  transition: all var(--transition-fast);
+}
+
+.footer-social-link:hover {
+  color: var(--color-primary) !important;
+  border-color: var(--color-primary);
+  background-color: var(--bg-surface-alt);
+  transform: translateY(-2px);
+}
+
 /* --------------------------------------------------------------------------
    7. ANIMATIONS & EFFECTS
    -------------------------------------------------------------------------- */
@@ -762,6 +788,9 @@ html[data-theme="dark"] .floating-paw {
   }
   .footer-link {
     align-self: center;
+  }
+  .footer-socials {
+    justify-content: center;
   }
 }
 
